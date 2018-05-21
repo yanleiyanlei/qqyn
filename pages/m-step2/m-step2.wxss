@@ -1,0 +1,186 @@
+/* pages/m-step2/m-step2.wxss */
+@import "../../lib/style/iconfont.wxss";
+@import "../../lib/style/public.wxss";
+
+.hd-banner {
+  width: 750rpx;
+  height: 850rpx;
+}
+
+page {
+  background: #fff;
+  padding-bottom: 50rpx;
+}
+
+.hd-banner image {
+  width: 100%;
+  height: 100%;
+}
+
+.tit {
+  font-size: 28rpx;
+  color: #434343;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  line-height: 50rpx;
+}
+.tit text{
+   font-size: 22rpx;
+  color: #ff712b;
+  margin-left: 5rpx;
+}
+
+/* 种类 */
+
+.box {
+  padding: 0 28rpx;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+.list {
+  width: 330rpx;
+  height: 210rpx;
+  position: relative;
+  text-align: center;
+  float: left;
+  margin: 20rpx 2.5rpx;
+  overflow: hidden;
+}
+.tj{
+  width: 200rpx;
+  height: 150rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 60rpx;
+  z-index: 2;
+    opacity: 0; 
+   filter: opacity(0); 
+}
+
+.list .one {
+  font-size: 36rpx;
+  width: 100%;
+  color: #a64b00;
+  position: absolute;
+  top: 64rpx;
+  text-align: center;
+}
+
+.list .join {
+  display: inline-block;
+  width: 154rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  background: #fff;
+  color: #f00;
+  font-size: 24rpx;
+  position: absolute;
+  top: 125rpx;
+  left: 85rpx;
+  border-radius: 38rpx;
+}
+
+.list .join button {
+  display: inline-block;
+  width: 154rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  background: #fff;
+  color: #f00;
+  font-size: 24rpx;
+  border-radius: 38rpx;
+}
+
+.list image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 轮播 */
+
+.item {
+  height: 72rpx;
+  width: 670rpx;
+  border: 1rpx solid #ff712b;
+  border-radius: 72rpx;
+  -webkit-border-radius: 72rpx;
+  -moz-border-radius: 72rpx;
+  -ms-border-radius: 72rpx;
+  -o-border-radius: 72rpx;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  overflow: hidden;
+}
+
+.item .iconfont {
+  color: #ff712b;
+  font-size: 40rpx;
+  line-height: 70rpx;
+  margin-left: 32rpx;
+   margin-right: 8rpx; 
+  float: left;
+}
+
+.item .one {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #434343;
+   margin-right: 8rpx; 
+  line-height: 70rpx;
+  float: left;
+}
+
+.item .two {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #434343;
+   margin-right: 10rpx; 
+  line-height: 70rpx;
+  float: left;
+}
+
+.item .three {
+  font-size: 26rpx;
+  line-height: 70rpx;
+  color: #f00;
+  float: right;
+   margin-right: 10rpx; 
+
+}
+
+.item .three button {
+  width: 160rpx;
+  height: 70rpx;
+  font-size: 26rpx;
+  line-height: 70rpx;
+  color: #f00;
+  background: #fff;
+  border:none;
+  outline: none;
+
+}
+.item .three button::after{
+  border: none;
+}
+.content {
+  width: 100%;
+  height: 74rpx;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  margin-top: 30rpx;
+}

@@ -1,0 +1,60 @@
+<view class="hd-banner">
+  <image src="https://m.7710mall.com/Uploads/xxc//step_banner.png"></image>
+</view>
+<view class="tit" style="margin-top:40rpx;" wx:if="{{act.length!=0}}">选择组队任务
+  <text>(我的步数{{step}})</text>
+</view>
+<view class="box clearfix">
+  <block wx:for="{{act}}">
+    <form report-submit="true" bindsubmit="Submit">
+      <input value='{{item.id}}' name="ac_id" style="display:none"></input>
+
+      <view class="list">
+        <button form-type='submit' class="tj"></button>
+        <image src="https://m.7710mall.com/Uploads/xxc//m_step1.png"></image>
+        <view class="one">{{item.step_name}}</view>
+        <view class="join" data-acid="{{item.id}}">
+          <text>立即组队</text>
+        </view>
+      </view>
+    </form>
+  </block>
+
+  <!-- <view class="list">
+    <image src="https://m.7710mall.com/Uploads/xxc//m_step2.png"></image>
+    <view class="one">3人5万步</view>
+    <view class="join">立即组队</view>
+  </view>
+  <view class="list">
+    <image src="https://m.7710mall.com/Uploads/xxc//m_step3.png"></image>
+    <view class="one">3人4万步</view>
+    <view class="join">立即组队</view>
+  </view>
+  <view class="list">
+    <image src="https://m.7710mall.com/Uploads/xxc//m_step4.png"></image>
+    <view class="one">3人2万步</view>
+    <view class="join">立即组队</view>
+  </view>  -->
+</view>
+<view class="tit" wx:if="{{arr.length!=0}}">加入其它战队</view>
+<block wx:if="{{arr.length!=0}}">
+  <swiper class="content" autoplay="true" interval="5000" duration="500" vertical="true">
+    <block wx:for="{{arr}}">
+      <swiper-item>
+        <view class="item">
+          <text class="iconfont icon-laba001"></text>
+          <text class="one">{{item.step_name}}</text>
+          <text class="two">还差{{item.sheng_mem}}人{{item.step_number}}步拼成</text>
+          <view class="three" data-acID="{{item.step_id}}" data-teamID="{{item.team_id}}" bindtap="join">
+            <form report-submit="true" bindsubmit="Submit2">
+              <input name='acid' value="{{item.step_id}}" style="display:none"></input>
+              <input name="teamid" value="{{item.team_id}}" style="display:none"></input>
+              <button formType="submit">立即加入</button>
+            </form>
+
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</block>

@@ -64,7 +64,7 @@ Page({
     that.setData({
       uid: wx.getStorageSync("userinfo").uid
     })
-
+// 活动类型
     wx.request({
       url: app.globalData.Murl + '/Applets/Active/get_step_list',
       method: "post",
@@ -75,6 +75,55 @@ Page({
         })
       }
     })
+
+  // 假数据
+    wx.request({
+      url: app.globalData.Murl + '/Applets/Active/step_detail',
+      method: "post",
+      success: function (res) {
+        console.log(2222)
+        console.log(res)
+        that.setData({
+          rule: res.data.rule,
+          finish_num: res.data.finish_num,
+          total_num: res.data.total_num,
+          tit: res.data.rule[0].step_number
+        })
+      }
+    })
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+    // 倒计时
+    var timestamp = Date.parse(new Date());
+    timestamp = timestamp / 1000;
+    var n = timestamp * 1000;
+    var date = new Date(n);
+    var h = 23 - date.getHours();
+    var m = 59 - date.getMinutes();
+    var s = 59 - date.getSeconds();
+    var gap = h * 60 * 60 + m * 60 + s;
+    setInterval(
+      function () {
+        gap--;
+        var h1 = parseInt(gap / 60 / 60);
+        var m1 = parseInt(gap / 60) % 60;
+        var s1 = gap % 60;
+        if (m1 < 10) {
+          m1 = "0" + m1;
+        }
+        if (s1 < 10) {
+          s1 = "0" + s1;
+        }
+        that.setData({
+          h1: h1,
+          m1: m1,
+          s1: s1
+        })
+
+      }
+
+      , 1000)
 
 
 

@@ -27,6 +27,31 @@ Page({
       that.setData({
         uid: wx.getStorageSync("userinfo").uid
       })
+      wx.login({
+        success: function (res) {
+          var code = res.code
+          wx.getWeRunData({//解密微信运动
+            success(res) {
+              wx.setStorageSync("run", true);
+              wx.request({
+                url: app.globalData.Murl + '/Applets/Active/wx_movemen',
+                data: { code: code, encryptedData: res.encryptedData, iv: res.iv, member_id: that.data.uid },
+                method: "post",
+                success: function (res) {
+
+                }
+              })
+            },
+            fail: function () {
+              wx.showToast({
+                title: '请授权微信运动步数，参加活动',
+                icon: "none",
+                duration: 1000
+              })
+            }
+          })
+        }
+      })
       //参加的团队
       wx.request({
         url: app.globalData.Murl + '/Applets/Active/team_list',
@@ -74,31 +99,7 @@ Page({
 
         }
       })
-      wx.login({
-        success: function (res) {
-          var code = res.code
-          wx.getWeRunData({//解密微信运动
-            success(res) {
-              wx.setStorageSync("run", true);
-              wx.request({
-                url: app.globalData.Murl + '/Applets/Active/wx_movemen',
-                data: { code: code, encryptedData: res.encryptedData, iv: res.iv, member_id: that.data.uid },
-                method: "post",
-                success: function (res) {
-
-                }
-              })
-            },
-            fail: function () {
-              wx.showToast({
-                title: '请授权微信运动步数，参加活动',
-                icon: "none",
-                duration: 1000
-              })
-            }
-          })
-        }
-      })
+      
 
     } else {
       that.setData({

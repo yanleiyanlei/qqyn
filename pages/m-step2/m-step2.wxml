@@ -1,5 +1,25 @@
 <view class="hd-banner">
-  <image src="https://m.7710mall.com/Uploads/xxc//step_banner.png"></image>
+  <view class="remain">鸡蛋剩余:86份</view>
+  <view class="hd-dw">
+    <view class="now-join">已有\t
+      <text class="now-join-num">{{total_num}}</text>\t人组队拼团</view>
+
+    <view class="end-gap">
+      <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png"></image>
+      <view class="center">离任务结束还有:
+        <text class="time">{{h1}}</text>
+        <text>:</text>
+        <text class="time">{{m1}}</text>
+        <text>:</text>
+        <text class="time">{{s1}}</text>
+      </view>
+      <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png" style="float:right"></image>
+    </view>
+
+  </view>
+
+
+  <image src="https://m.7710mall.com/Uploads/xxc//step_banner.png" class="banner"></image>
 </view>
 <view class="tit" style="margin-top:40rpx;" wx:if="{{act.length!=0}}">选择组队任务
   <text>(我的步数{{step}})</text>

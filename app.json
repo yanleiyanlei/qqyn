@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/m-step/m-step",
+    "pages/index/index",
     "pages/m-step3/m-step3",
     "pages/m-step2/m-step2",
     "pages/hasbeencompleted/hasbeencompleted",

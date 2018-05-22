@@ -7,7 +7,27 @@
 </view>
 <!-- 正文 -->
 <view class="hd-banner">
-  <image src="https://m.7710mall.com/Uploads/xxc//step_banner.png"></image>
+  <view class="remain">鸡蛋剩余:86份</view>
+  <view class="hd-dw">
+    <view class="now-join">已有\t
+      <text class="now-join-num">{{total_num}}</text>\t人组队拼团</view>
+
+    <view class="end-gap">
+      <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png"></image>
+      <view class="center">离任务结束还有:
+        <text class="time">{{h1}}</text>
+        <text>:</text>
+        <text class="time">{{m1}}</text>
+        <text>:</text>
+        <text class="time">{{s1}}</text>
+      </view>
+      <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png" style="float:right"></image>
+    </view>
+
+  </view>
+
+
+  <image src="https://m.7710mall.com/Uploads/xxc//step_banner.png" class="banner"></image>
 </view>
 <!-- 加入的团队 -->
 <view class="team" wx:if="{{team}}">
@@ -154,7 +174,7 @@
   <view class="team-tit" wx:if="{{teamList2.length!=0}}">我参加的战队</view>
   <view class="bigbox" style="{{foldStyle31}}">
     <view class="box2" style="{{foldStyle3}}">
-    
+
       <block wx:for="{{teamList2}}" wx:for-item="items">
 
         <view class="box {{items.state==2?'success':''}}  {{items.state==3?'fail':''}}">
@@ -292,20 +312,7 @@
     <text class="now-tit-one">{{tit}}</text>
     <text class="now-tit-two">步</text> 拼团任务完成总人数（人）</view>
   <view class="now-finish">{{finish_num}}</view>
-  <view class="now-join">已有\t
-    <text class="now-join-num">{{total_num}}</text>\t人组队拼团</view>
 
-  <view class="end-gap">
-    <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png"></image>
-    <view class="center">离任务结束还有:
-      <text class="time">{{h1}}</text>
-      <text>:</text>
-      <text class="time">{{m1}}</text>
-      <text>:</text>
-      <text class="time">{{s1}}</text>
-    </view>
-    <image src="https://m.7710mall.com/Uploads/xxc//m_xian.png" style="float:right"></image>
-  </view>
 </view>
 <!-- 规则 -->
 <view class="hd-rule">

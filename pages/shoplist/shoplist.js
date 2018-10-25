@@ -3,6 +3,7 @@ Page({
     date:[{
          datas:[],
     }],
+    //页面跳转
     imgurleh(e){
         let goodsid= e.currentTarget.dataset.id;
           wx.redirectTo({
@@ -12,6 +13,7 @@ Page({
             complete: function(res) {console.log(res)},
           })
     },
+    //展示数据
     onLoad:function(){
     	var _this=this;
     	var uid = wx.getStorageSync("userinfo").uid;

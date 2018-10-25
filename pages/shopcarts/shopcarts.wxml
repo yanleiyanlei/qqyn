@@ -3,6 +3,16 @@
 <page>
 <!--小程序的loaing组件!-->
 <loading hidden="{{hiddenLoading}}">正在加载</loading>
+<view class="hdtop">
+			<view class="tiels">全场满99.00元包邮，还差
+       <text wx:if="{{ commpany.transportation_name==3 && totalPrice >= package_mail}}">0</text>
+        <text wx:elif="{{is_coupon==1}}">(选择优惠商品券免运费)</text>
+      <text wx:else>{{zonprice}}</text>
+      元包邮</view>
+      <navigator opent-type="redirectTo" url="/pages/m-coupon/m-coupon" hover-class='Nhover'>
+			<view class="coupons">优惠券  ></view>
+      </navigator>
+		</view>
 <view class="shopcartitle">
 	<text class="sh-title">购物车</text>
   <view bindtap="toggle">

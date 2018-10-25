@@ -1,4 +1,5 @@
 const app = getApp();
+var user = require("../../lib/js/user.js")
 Page({
 
   /**
@@ -6,23 +7,136 @@ Page({
    */
   data: {
     uid: '',
-    show: "display:none",
-    more: "display:block",
-    fold: true,
-    fold2: false,
+    mshow: "display:none",//授权遮罩
+    more: "display:block",//更多活动
+    fold: true,//规则折叠
+    fold2: false,//战队折叠
     fold3: false,
     foldStyle: "height:340rpx;",
-    foldStyle2: "height:1250rpx!important;",
+    foldStyle2: "height:auto!important;",
     foldStyle3: "height:1250rpx!important;",
     team: "",
     teamList1: [],
     teamList2: [],
+    teamList3: [],
+    teamList: [],//渲染的组队信息
     h1: "",
     m1: "",
-    s1: ""
+    s1: "",
+    soldout: false,
+    sta: 1//切换
+  },
+  gowx: function () {
+    wx.navigateTo({
+      url: '/pages/goout/goout',
+    })
+  },
+  tab: function (e) {
+    var that = this;
+    var index = e.currentTarget.dataset.sta;
+    if (index == 1) {
+
+      that.setData({
+        teamList: that.data.teamList1,
+        sta: 1
+      })
+      if (that.data.teamList.length > 4) {
+        that.setData({
+          foldStyle2: "height:1316rpx!important;",
+          foldStyle21: "padding-bottom:70rpx!important;",
+          fold2: true
+        })
+      } else {
+        that.setData({
+          foldStyle2: "height:auto!important;",
+          foldStyle21: "padding-bottom:0rpx!important;",
+          fold2: false
+        })
+      }
+    }
+    if (index == 2) {
+      that.setData({
+        teamList: that.data.teamList2,
+        sta: 2
+      })
+      if (that.data.teamList.length > 4) {
+        that.setData({
+          foldStyle2: "height:1316rpx!important;",
+          foldStyle21: "padding-bottom:70rpx!important;",
+          fold2: true
+        })
+      } else {
+        that.setData({
+          foldStyle2: "height:auto!important;",
+          foldStyle21: "padding-bottom:0rpx!important;",
+          fold2: false
+        })
+
+      }
+    }
+    if (index == 3) {
+      that.setData({
+        teamList: that.data.teamList3,
+        sta: 3
+      })
+      if (that.data.teamList.length > 4) {
+        that.setData({
+          foldStyle2: "height:1316rpx!important;",
+          foldStyle21: "padding-bottom:70rpx!important;",
+          fold2: true
+        })
+      } else {
+        that.setData({
+          foldStyle2: "height:auto!important;",
+          foldStyle21: "padding-bottom:0rpx!important;",
+          fold2: false
+        })
+      }
+    }
   },
   onShow: function () {
     var that = this;
+    // 规则
+    wx.request({
+      url: app.globalData.Murl + '/Applets/Active/step_detail',
+      method: "post",
+      success: function (res) {
+        console.log(res)
+        if (res.data.step_rand) {
+          that.setData({
+            step_rand: res.data.step_rand,
+            x: Math.floor(Math.random() * (res.data.step_rand.length - 1)),
+          })
+          //Math.floor(Math.random() * (res.data.step_rand.length - 1))
+          if (that.data.x == 0) {
+            that.setData({
+              y: parseInt(that.data.step_rand.length) - 1
+            })
+          } else {
+            that.setData({
+              y: that.data.x - 1
+            })
+          }
+
+
+
+        }
+
+        if (res.data.is_sale == 1) {//活动下架
+          that.setData({
+            soldout: true
+          })
+        } else {
+          that.setData({
+            soldout: false
+          })
+        }
+        that.setData({
+          total_num: res.data.total_num,
+        })
+      }
+    })
+    //判断授权
     if (wx.getStorageSync("userinfo").uid) {
       that.setData({
         uid: wx.getStorageSync("userinfo").uid
@@ -39,6 +153,91 @@ Page({
                 method: "post",
                 success: function (res) {
 
+                },
+                complete: function () {
+                  //参加的团队
+                  wx.request({
+                    url: app.globalData.Murl + '/Applets/Active/team_list',
+                    data: { member_id: wx.getStorageSync("userinfo").uid },
+                    method: "post",
+                    success: function (res) {
+                      console.log(res)
+                      that.setData({
+                        teamList1: res.data.going,
+                        teamList2: res.data.finish,
+                        teamList3: res.data.all,
+                        head_pic: res.data.head_pic,
+                        rice: res.data.member_rice
+                      })
+                      if (that.data.sta == 1) {
+                        that.setData({
+                          teamList: res.data.going
+                        })
+                      }
+                      if (that.data.sta == 2) {
+                        that.setData({
+                          teamList: res.data.finish
+                        })
+                      }
+                      if (that.data.sta == 3) {
+                        that.setData({
+                          teamList: res.data.all
+                        })
+                      }
+                      console.log(res.data.all)
+                      if (that.data.teamList.length > 4) {
+                        that.setData({
+                          foldStyle2: "height:1314rpx!important;",
+                          foldStyle21: "padding-bottom:70rpx!important;",
+                          fold2: true
+                        })
+                      } else {
+                        that.setData({
+                          foldStyle2: "height:auto!important;",
+                          foldStyle21: "padding-bottom:0rpx!important;",
+                          fold2: false
+                        })
+                      }
+                      // if (res.data.create == "" && res.data.join == "") {
+                      //   that.setData({
+                      //     team: false
+                      //   })
+                      // } else {
+                      //   that.setData({
+                      //     team: true,
+                      //     teamList1: res.data.create,
+                      //     teamList2: res.data.join,
+                      //   })
+                      //   if (res.data.create.length > 4) {
+                      //     that.setData({
+                      //       foldStyle2: "height:1200rpx!important;",
+                      //       foldStyle21: "padding-bottom:70rpx!important;",
+                      //       fold2: true
+                      //     })
+                      //   } else {
+                      //     that.setData({
+                      //       foldStyle2: "height:auto!important;",
+                      //       foldStyle21: "padding-bottom:0rpx!important;",
+                      //       fold2: false
+                      //     })
+                      //   }
+                      //   if (res.data.join.length > 4) {
+                      //     that.setData({
+                      //       foldStyle3: "height:1200rpx!important;",
+                      //       foldStyle31: "padding-bottom:70rpx!important;",
+                      //       fold3: true
+                      //     })
+                      //   } else {
+                      //     that.setData({
+                      //       foldStyle3: "height:auto!important;",
+                      //       foldStyle31: "padding-bottom:0rpx!important;",
+                      //       fold3: false
+                      //     })
+                      //   }
+                      // }
+
+                    }
+                  })
                 }
               })
             },
@@ -52,67 +251,20 @@ Page({
           })
         }
       })
-      //参加的团队
-      wx.request({
-        url: app.globalData.Murl + '/Applets/Active/team_list',
-        data: { member_id: wx.getStorageSync("userinfo").uid },
-        method: "post",
-        success: function (res) {
-          console.log(res)
-          if (res.data.create == "" && res.data.join == "") {
-            that.setData({
-              team: false
-            })
-          } else {
-            that.setData({
-              team: true,
-              teamList1: res.data.create,
-              teamList2: res.data.join,
-            })
-            if (res.data.create.length > 4) {
-              that.setData({
-                foldStyle2: "height:1200rpx!important;",
-                foldStyle21: "padding-bottom:70rpx!important;",
-                fold2: true
-              })
-            } else {
-              that.setData({
-                foldStyle2: "height:auto!important;",
-                foldStyle21: "padding-bottom:0rpx!important;",
-                fold2: false
-              })
-            }
-            if (res.data.join.length > 4) {
-              that.setData({
-                foldStyle3: "height:1200rpx!important;",
-                foldStyle31: "padding-bottom:70rpx!important;",
-                fold3: true
-              })
-            } else {
-              that.setData({
-                foldStyle3: "height:auto!important;",
-                foldStyle31: "padding-bottom:0rpx!important;",
-                fold3: false
-              })
-            }
-          }
 
-        }
-      })
-      
+
 
     } else {
       that.setData({
-        show: "display:block"
+        mshow: "display:block"
       })
       var timer = setInterval(function () {
         var userInfo = wx.getStorageSync("userinfo");
-        // console.log(userInfo.uid)
         if (userInfo.uid) {
           clearInterval(timer)
           that.setData({
             uid: wx.getStorageSync("userinfo").uid,
-            show: "display:none"
+            mshow: "display:none"
           })
           wx.login({
             success: function (res) {
@@ -127,6 +279,92 @@ Page({
                     success: function (res) {
 
 
+                    },
+                    complete: function () {
+                      // 参加的团队
+                      wx.request({
+                        url: app.globalData.Murl + '/Applets/Active/team_list',
+                        data: { member_id: wx.getStorageSync("userinfo").uid },
+                        method: "post",
+                        success: function (res) {
+                          console.log(res)
+                          console.log(res)
+                          that.setData({
+                            teamList1: res.data.going,
+                            teamList2: res.data.finish,
+                            teamList3: res.data.all,
+                            head_pic: res.data.head_pic,
+                            rice: res.data.member_rice
+                          })
+                          if (that.data.sta == 1) {
+                            that.setData({
+                              teamList: res.data.going
+                            })
+                          }
+                          if (that.data.sta == 2) {
+                            that.setData({
+                              teamList: res.data.finish
+                            })
+                          }
+                          if (that.data.sta == 3) {
+                            that.setData({
+                              teamList: res.data.all
+                            })
+                          }
+                          console.log(res.data.going)
+                          if (that.data.teamList.length > 4) {
+                            that.setData({
+                              foldStyle2: "height:1200rpx!important;",
+                              foldStyle21: "padding-bottom:70rpx!important;",
+                              fold2: true
+                            })
+                          } else {
+                            that.setData({
+                              foldStyle2: "height:auto!important;",
+                              foldStyle21: "padding-bottom:0rpx!important;",
+                              fold2: false
+                            })
+                          }
+                          // if (res.data.create == "" && res.data.join == "") {
+                          //   that.setData({
+                          //     team: false
+                          //   })
+                          // } else {
+                          //   that.setData({
+                          //     team: true,
+                          //     teamList1: res.data.create,
+                          //     teamList2: res.data.join,
+                          //   })
+                          //   if (res.data.create.length > 4) {
+                          //     that.setData({
+                          //       foldStyle2: "height:1200rpx!important;",
+                          //       foldStyle21: "padding-bottom:70rpx!important;",
+                          //       fold2: true
+                          //     })
+                          //   } else {
+                          //     that.setData({
+                          //       foldStyle2: "height:auto!important;",
+                          //       foldStyle21: "padding-bottom:0rpx!important;",
+                          //       fold2: false
+                          //     })
+                          //   }
+                          //   if (res.data.join.length > 4) {
+                          //     that.setData({
+                          //       foldStyle3: "height:1200rpx!important;",
+                          //       foldStyle31: "padding-bottom:70rpx!important;",
+                          //       fold3: true
+                          //     })
+                          //   } else {
+                          //     that.setData({
+                          //       foldStyle3: "height:auto!important;",
+                          //       foldStyle31: "padding-bottom:0rpx!important;",
+                          //       fold3: false
+                          //     })
+                          //   }
+                          // }
+
+                        }
+                      })
                     }
                   })
                 },
@@ -141,57 +379,11 @@ Page({
             }
           })
 
-          // 参加的团队
-          wx.request({
-            url: app.globalData.Murl + '/Applets/Active/team_list',
-            data: { member_id: wx.getStorageSync("userinfo").uid },
-            method: "post",
-            success: function (res) {
-              console.log(res)
-              if (res.data.create == "" && res.data.join == "") {
-                that.setData({
-                  team: false
-                })
-              } else {
-                that.setData({
-                  team: true,
-                  teamList1: res.data.create,
-                  teamList2: res.data.join,
-                })
-                if (res.data.create.length > 4) {
-                  that.setData({
-                    foldStyle2: "height:1200rpx!important;",
-                    foldStyle21: "padding-bottom:70rpx!important;",
-                    fold2: true
-                  })
-                } else {
-                  that.setData({
-                    foldStyle2: "height:auto!important;",
-                    foldStyle21: "padding-bottom:0rpx!important;",
-                    fold2: false
-                  })
-                }
-                if (res.data.join.length > 4) {
-                  that.setData({
-                    foldStyle3: "height:1200rpx!important;",
-                    foldStyle31: "padding-bottom:70rpx!important;",
-                    fold3: true
-                  })
-                } else {
-                  that.setData({
-                    foldStyle3: "height:auto!important;",
-                    foldStyle31: "padding-bottom:0rpx!important;",
-                    fold3: false
-                  })
-                }
-              }
 
-            }
-          })
 
         } else {
           that.setData({
-            show: "display:block"
+            mshow: "display:block"
           })
         }
       }, 1000)
@@ -202,27 +394,50 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-
+  onUnload: function () {
+    app.globalData.timer2 = 3;
+  },
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: app.globalData.Murl + '/Applets/Active/step_detail',
-      method: "post",
-      success: function (res) {
-        console.log(2222)
-        console.log(res)
-        that.setData({
-          rule: res.data.rule,
-          finish_num: res.data.finish_num,
-          total_num: res.data.total_num,
-          tit: res.data.rule[0].step_number
-        })
-      }
+    app.globalData.timer2 = 2;
+    that.setData({
+      tx: wx.getStorageSync("userinfo").avatarUrl
     })
     wx.showShareMenu({
       withShareTicket: true
     })
-    // 倒计时
+
+
+    var timer2 = setInterval(function () {
+      // console.log(that.data.x)
+      // console.log(that.data.y)
+
+      if (app.globalData.timer2 == 3) {
+        clearInterval(timer2)
+      }
+      if (that.data.x == 0) {
+        that.setData({
+          x: parseInt(that.data.step_rand.length) - 1,
+          y: parseInt(that.data.step_rand.length) - 2
+        })
+
+
+
+      } else if (that.data.x == 1) {
+        that.setData({
+          x: 0,
+          y: parseInt(that.data.step_rand.length) - 1
+        })
+      } else {
+        that.setData({
+          y: that.data.x - 2,
+          x: that.data.x - 1
+        })
+      }
+    }, 5000)
+
+
+    // 轮播上的倒计时
     var timestamp = Date.parse(new Date());
     timestamp = timestamp / 1000;
     var n = timestamp * 1000;
@@ -248,42 +463,14 @@ Page({
           m1: m1,
           s1: s1
         })
-
       }
-
       , 1000)
 
   },
-  UserInfo: function (e) {
-    //console.log(e.detail);
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl + '/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+  UserInfo: function (e) {//开通权限获得用户信息
+    user.user(e)
   },
-  Sfold: function (e) {
+  Sfold: function (e) {//规则展开
     var that = this;
     var formId = e.detail.formId;
     wx.request({
@@ -291,24 +478,24 @@ Page({
       data: { member_id: that.data.uid, formid: formId },
       method: 'post',
       success: function (res) {
-        // console.log(res)
       }
     })
-    var fold = !e.detail.value.ff;
-    this.setData({
-      fold: fold
-    })
-    if (!fold) {
-      this.setData({
+    var fold = e.detail.value.ff;
+    console.log(e.detail.value.ff)
+    if (fold=='true') {
+      that.setData({
+        fold: false,
         foldStyle: "height:auto!important;"
       })
-    } else {
-      this.setData({
+    }else if(fold=='false'){
+      console.log(555)
+      that.setData({
+        fold: true,
         foldStyle: "height:350rpx!important;"
       })
     }
   },
-  Sfold2: function (e) {
+  Sfold2: function (e) {//我组建的团队展开
     var that = this;
     var formId = e.detail.formId;
     wx.request({
@@ -316,7 +503,6 @@ Page({
       data: { member_id: that.data.uid, formid: formId },
       method: 'post',
       success: function (res) {
-        // console.log(res)
       }
     })
     var fold2 = !e.detail.value.ff;
@@ -335,7 +521,7 @@ Page({
       })
     }
   },
-  Sfold3: function (e) {
+  Sfold3: function (e) {//我加入的团队展开
     var that = this;
     var formId = e.detail.formId;
     wx.request({
@@ -343,7 +529,6 @@ Page({
       data: { member_id: that.data.uid, formid: formId },
       method: 'post',
       success: function (res) {
-        // console.log(res)
       }
     })
     var fold3 = !e.detail.value.ff;
@@ -362,7 +547,7 @@ Page({
       })
     }
   },
-  Submit: function (e) {
+  Submit: function (e) {//进入下一页的开通微信步数
     var that = this;
     var formId = e.detail.formId;
     wx.request({
@@ -370,11 +555,8 @@ Page({
       data: { member_id: that.data.uid, formid: formId },
       method: 'post',
       success: function (res) {
-        // console.log(res)
       }
     })
-
-    // console.log(that.data.uid)
     if (!wx.getStorageSync('run')) {
       wx.login({
         success: function (res) {
@@ -407,33 +589,29 @@ Page({
               }
             }
           })
-
         }
       })
-
     } else {
       wx.navigateTo({
         url: '/pages/m-step2/m-step2',
       })
     }
   },
-  Submit2: function (e) {
+  Submit2: function (e) {//点击不同的战队显示
     var that = this;
     var zl = e.detail.value.zl;
     var formId = e.detail.formId;
     console.log(formId)
-    // console.log(zl)
     if (zl == 1) {
       wx.request({
         url: app.globalData.Murl + '/Applets/Active/get_mem_formid',
         data: { member_id: that.data.uid, formid: formId },
         method: 'post',
         success: function (res) {
-          // console.log(res)
         }
       })
       wx.navigateTo({
-        url: '/pages/m-coupon/m-coupon',
+        url: '/pages/personalcenter/personalcenter?uid=' + that.data.uid,
       })
     }
     if (zl == 2) {
@@ -443,11 +621,10 @@ Page({
         data: { member_id: that.data.uid, formid: formId },
         method: 'post',
         success: function (res) {
-          // console.log(res)
         }
       })
       wx.navigateTo({
-        url: '/pages/m-step3/m-step3?teamid=' + teamid,
+        url: '/pages/m-step3/m-step3?scene=' + teamid,
       })
     }
     if (zl == 3) {
@@ -456,7 +633,7 @@ Page({
         data: { member_id: that.data.uid, formid: formId },
         method: 'post',
         success: function (res) {
-          // console.log(res)
+
         }
       })
     }
@@ -480,9 +657,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
 
-  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -513,26 +688,12 @@ Page({
         var shareTickets = res.shareTickets[0];
         wx.login({
           success: function (res) {
-            //console.log(shareTickets)
             var code = res.code;
             wx.getShareInfo({
               shareTicket: shareTickets,
               success: function (res) {
                 var encryptedData = res.encryptedData;
                 var iv = res.iv;
-                // console.log(res)
-                // console.log(code)
-                // wx.request({
-                //   url: app.globalData.Murl+'/Applets/Login/jiemi',
-                //   data: { encryptedData: encryptedData, iv: iv, code: code },
-                //   method: "post",
-                //   success: function (res) {
-                //     var openGId = res.data.openGId;
-                //     // console.log(res.data.openGId)
-                //     //console.log(that.data.uid)
-
-                //   }
-                // })
               },
               fail: function (res) { console.log(res) },
               complete: function (res) { }
@@ -542,17 +703,10 @@ Page({
 
           }
         })
-        // console.log
 
       },
       fail: function (res) {
-        // 分享失败
-        //console.log(res)
-        // wx.showToast({
-        //   title: '系统繁忙',
-        //   icon:'none',
-        //   duration:1000
-        // })
+
       }
     }
   }

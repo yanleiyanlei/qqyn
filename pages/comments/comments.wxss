@@ -82,7 +82,7 @@
 .touxiangs{
     width: 80rpx;
     height: 80rpx;
-    border-radius: .5rem;
+    border-radius: 50%;
     overflow: hidden;
     text-align: center;
     float: left;

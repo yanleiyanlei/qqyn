@@ -9,7 +9,7 @@
   </view>
 </view>
 <view class="paytype">
-  <view class="paywechat">
+  <view class="paywechat {{actualpayment == 0 ? 'areaselected' : ''}}">
     <text class="iconfont icon-weixin"></text> 微信支付
     <view class="but">
       <view class="a">
@@ -18,7 +18,6 @@
       </view>
     </view>
   </view>
-
   <view class="payyue" wx:if="{{mdd}}">
     <text class="iconfont icon-iconfontzhanghuzichan"></text> 余额支付
     <view class="b">
@@ -26,7 +25,6 @@
       <icon wx:else type="circle" data-key="0" color="#bfbfbf" bindtap="selectAlls" />
     </view>
   </view>
-
 </view>
 <!-- 输入密码 -->
 <view class="btnpay" bindtap="pay">

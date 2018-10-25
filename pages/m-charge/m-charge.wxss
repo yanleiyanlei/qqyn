@@ -9,7 +9,6 @@
   font-size: 24rpx;
   line-height: 65rpx;
   padding-left: 30rpx;
-  box-sizing: border-box;
 }
 
 .balance {
@@ -17,7 +16,6 @@
   height: 100rpx;
   background: #fff;
   padding: 0rem 30rpx 0 30rpx;
-  box-sizing: border-box;
   display: -webkit-box;
   -webkit-box-orient: horizontal;
   line-height: 100rpx;
@@ -55,19 +53,13 @@
   box-sizing: border-box;
 }
 
-/* .amount p {
-  font-size: 28rpx;
-  color: #666;
-} */
-
 .amount-tit {
   font-size: 28rpx;
   color: #666;
 }
 
 .amount .amount-smal {
-  /*display: -webkit-box;
-     -webkit-box-orient: horizontal;*/
+
   width: 100%;
   height: 80rpx;
   background: #fff;
@@ -113,10 +105,6 @@
   border-radius: 10rpx;
   margin: 0 5rpx;
   text-align: center;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   margin-bottom: 8rpx;
 }
 .amount .Howmuchimpact .active{

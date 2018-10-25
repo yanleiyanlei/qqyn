@@ -1,6 +1,6 @@
-<!--pages/m-setting/m-setting.wxml-->
+<!--个人中心，设置页面-->
 <navigator url="/pages/m-payPsw/m-payPsw">
-  <view class="listBox" style="margin-top: 10rpx;">
+  <view class="listBox border-box" style="margin-top: 10rpx;">
     <view class="list">
       <text class="one">支付密码</text>
       <text class="iconfont icon-iconfontyoujiantou"></text>

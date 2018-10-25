@@ -1,3 +1,4 @@
+/* 公用样式文件 */
 .clearfix:after {
   content: "";
   display: block;
@@ -5,16 +6,19 @@
   clear: both;
   visibility: hidden;
 }
-page{
+
+page {
   background: #f6f6f6;
 }
-Nhover{
+
+Nhover {
   background: #fff;
 }
+
 .border1 {
   position: relative;
- 
-  border: none; }
+  border: none;
+}
 
 .border1:after {
   content: '';
@@ -27,48 +31,69 @@ Nhover{
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
   -webkit-transform-origin: 0 0;
-  transform-origin: 0 0; }
-  .transMark{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background: #fff;
-    z-index: 999;
-  }
-  .open{
-    width: 180rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    background: #ff712b;
-    font-size: 30rpx;
-    text-align: center;
-    color: #fff;
-    border-radius: 10rpx;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -30rpx;
-    margin-left: -80rpx;
-  }
-  .open-tip{
-    width: 80%;
-    line-height: 40rpx;
-    margin: 0 auto;
-    margin-top: 50%;
-    text-align: center;
-    font-size: 28rpx;
-    color: #ccc;
-  }
-    .mask{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    background: #000;
-    z-index: 999;
-    opacity: 0.3;
-    filter: opacity(30);
-  }
-  .userInfo {
+  transform-origin: 0 0;
+}
+
+
+/* 用户信息 */
+
+.transMark {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #fff;
+  z-index: 999;
+}
+.logo{
+  text-align: center;
+  margin-top: 140rpx;
+  height: 100rpx;
+}
+.logo image{
+width: 100rpx;
+height: 100rpx;
+}
+.scname{
+  font-size: 30rpx;
+  color: #0b0b0b;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.open {
+  width: 400rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  background: #ff712b;
+  font-size: 30rpx;
+  text-align: center;
+  color: #fff;
+  border-radius: 5rpx;
+  margin-top: 80rpx;
+}
+
+.open-tip {
+  width: 80%;
+  line-height: 40rpx;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 28rpx;
+  color: #ccc;
+  margin-top: 160rpx;
+}
+
+/* 用户信息 */
+
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  z-index: 999;
+  opacity: 0.3;
+  filter: opacity(30);
+}
+
+.userInfo {
   position: fixed;
   z-index: 1000;
   background: #fff;
@@ -90,7 +115,6 @@ Nhover{
   font-size: 32rpx;
   text-align: center;
   color: #999;
-
   line-height: 60rpx;
 }
 
@@ -122,4 +146,33 @@ Nhover{
 
 .userInfo .op view button::after {
   border: none;
+}
+view{
+  margin: 0;
+  padding: 0;
+}
+.flex{
+    display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+}
+.flex1{
+  flex: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  text-align: center
+}
+.border-box{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
 }

@@ -1,25 +1,38 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>  -->
-<view class="mask" style="{{show}}"></view>
-<view class="userInfo" style="{{show}}">
+<!-- <view class="mask" style="{{mshow}}"></view>
+<view class="userInfo" style="{{mshow}}">
   <view class="tt">"青青优农"要获得你的公开信息（昵称，头像等）</view>
   <view class="op">
     <view><button open-type='getUserInfo' bindgetuserinfo='UserInfo'>允许</button></view>
     <view bindtap='close'>拒绝</view>
   </view>
-</view>
+</view> -->
+<import src="/lib/template/userInfo2.wxml" />
+<template is="user2" data="{{mshow}}">
+</template>
 
+<view id="header" wx:if="{{store}}">
+  <navigator url="/pages/shopinfo/shopinfo" style="display:inline">
+    <view class="userimg">
+      <image src="{{shop.memberInfo.head_pic}}" />
+    </view>
+  </navigator>
+  <view class="usermes">
+    <view class="username">
+      {{shop.memberInfo.nickname}}
+    </view>
+    <view class="ul">
+      <view class="li">
+        <view class="span">{{shop.goodsnum}}</view>
+        <view class="p">全部商品</view>
+      </view>
+      <view class="li">
+        <view class="span">{{shop.goodsnew}}</view>
+        <view class="p">上新品</view>
+      </view>
+
+    </view>
+  </view>
+</view>
 <view class="gzs {{cs?'show':'hide'}}" bindtap='cs'>
   <view class='cont'>
     <view class='cont-left'>
@@ -29,7 +42,6 @@
       <view class='r1'>青青优农</view>
       <view class='r2'>食绿色有机果蔬，承载健康生活！</view>
     </view>
-
     <view class='cont-wm'>
       <image src='{{ewmimg}}' data-src="{{ewmimg}}" bindtap="previewImage"></image>
       <view>保存扫码,关注我们!</view>
@@ -37,8 +49,6 @@
   </view>
 </view>
 <!--首页轮播  -->
-
-
 <view class='index-swiper'>
   <!--搜索  -->
   <view class='search'>
@@ -54,11 +64,7 @@
   </view>
 
   <swiper indicator-dots="{{indicatorDots}}" indicator-active-color="#fff" indicator-color="rgba(255,255,255,.3)" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
-    <!-- <swiper-item>
-      <navigator url='/pages/m-step/m-step' hover-class='Nhover' open-type='navigate'>
-        <image src='/image/hd/step_banner.png' class="slide-image" />
-      </navigator>
-    </swiper-item> -->
+
     <block wx:for="{{banner}}">
       <swiper-item>
         <block wx:if="{{item.bannerlink}}">
@@ -209,11 +215,11 @@
   <block wx:for="{{goodsType}}">
     <view class='goodsType-tit'>
       <view>
-        <text class='typeIco' wx:if="{{item.green[0].cat_name=='有机果蔬'}}" style='background:#83ce3c'></text>
-        <text class='typeIco' wx:elif="{{item.green[0].cat_name=='生鲜水果'}}" style='background:#ff712b'></text>
-        <text class='typeIco' wx:elif="{{item.green[0].cat_name=='米面粮油'}}" style='background:#7a96fc'></text>
-        <text class='typeIco' wx:elif="{{item.green[0].cat_name=='草原牛羊'}}" style='background:#fecf56'></text>
-        <text class='typeIco' wx:elif="{{item.green[0].cat_name=='肉禽蛋品'}}" style='background:#f87275'></text>
+        <text class='typeIco' wx:if="{{index==0}}" style='background:#83ce3c'></text>
+        <text class='typeIco' wx:if="{{index==1}}" style='background:#ff712b'></text>
+        <text class='typeIco' wx:if="{{index==2}}" style='background:#7a96fc'></text>
+        <text class='typeIco' wx:if="{{index==3}}" style='background:#fecf56'></text>
+        <text class='typeIco' wx:if="{{index==4}}" style='background:#f87275'></text>
         <text class='typeName'>{{item.green[0].cat_name}}</text>
         <navigator class='typeMore' url='../classifyGoods/classifyGoods?id={{item.green[0].one_cat_id}}' hover-class='Nhover'>更多
           <text class='iconfont icon-iconfontyoujiantou'></text>
@@ -261,4 +267,9 @@
     </swiper>
 
   </block>
+</view>
+<view class="other-hd" bindtap='gowx'>
+
+  <image src='{{qqactiveUrls[1].ad_img}}'></image>
+
 </view>

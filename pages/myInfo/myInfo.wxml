@@ -1,4 +1,4 @@
-<!--pages/myInfo/myInfo.wxml-->
+<!--修改个人信息页面-->
 <form bindsubmit='formSubmit'>
 <input name="member_id" value='{{uid}}' style="display:none"></input>
 <input name="sex" value="{{sex}}" style="display:none"></input>

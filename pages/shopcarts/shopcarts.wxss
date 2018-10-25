@@ -10,7 +10,10 @@ page{
   background: #fff;
   line-height: 100rpx;
   color: #434343;
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 999999999;
+  left: 0;
   border-bottom: 1rpx solid #e2e2e2;
 }
 .shopcartitle .sh-title{
@@ -45,6 +48,7 @@ page{
   overflow: hidden;
   margin-bottom: 120rpx;
   padding-bottom: 100rpx;
+  margin-top: 190rpx;
 }
 .content {
  height: 100%;
@@ -306,4 +310,29 @@ page{
     margin-left: 270rpx;
     margin-top: 26rpx;
 }
+.hdtop{
+				width: 100%;
+				height: 90rpx;
+				background: #fff9eb;	
+				border-bottom: 0.001rem solid #d6d6d6;			
+				position: fixed;
+			    top: 100rpx;
+			    left: 0;
+			    z-index: 9999999999999999;
+			    line-height:90rpx;
+			    font-size: 22rpx;
+			    padding-left: 30rpx;
+			    padding-right: 40rpx;
+			    box-sizing: border-box;
+			}
+			.tiels{
+				float: left;
+			}
+			.tiels text{
+				color: #ff371b;
+			}
+			.coupons{
+				float: right;
+				color: #ff7117;
+			}
 /* */

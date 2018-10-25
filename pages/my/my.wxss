@@ -1,5 +1,8 @@
 @import "../../lib/style/iconfont.wxss";
 @import "../../lib/style/public.wxss";
+page{
+  background: #f6f6f6;
+}
 .border1:after{
   background: #eee;
 }
@@ -45,7 +48,6 @@
   font-size: 12px;
 }
 .top-up .top-up-info .info .username {
-  display: inline-block;
   height: 36rpx;
   font-size: 30rpx;
   color: #fff;
@@ -67,21 +69,10 @@
 }
 .top-up .info-list {
   padding: 6rpx;
-  display: flex;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
+
 }
 .top-up .info-list .list {
-  flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-flex: 1;
+
   text-align: center;
 }
 .top-up .info-list .list .one{
@@ -144,12 +135,6 @@
 .m-box .m-info {
   width: 100%;
   height: 110rpx;
-  display: flex;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
   position: absolute;
   top:54rpx;
   left: 0;
@@ -157,13 +142,6 @@
 .m-box .m-info .list {
   width: 240rpx;
   height: 110rpx;
-  flex: 1;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -ms-flex: 1;
   text-align: center;
 }
 .m-box .m-info .list .one {
@@ -229,11 +207,6 @@
   padding: 0 40rpx;
   height: 104rpx;
   background: #fff;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -ms-box-sizing: border-box;
 }
 .my-exclusive .my-exclusive-list image{
   width: 64rpx;
@@ -254,3 +227,80 @@
   float: right;
   color: #b6b6b6;
 }
+/* 会员权益 */
+.m-equity {
+  margin-top:10rpx;
+  background: #fff;
+}
+.m-equity .m-equity-box {
+  padding: 30rpx 0;
+  background: #fff;
+}
+.m-equity .m-equity-box .swiper-container {
+   padding: 0 10rpx; 
+  height: 250rpx;
+}
+.m-equity .m-equity-box .swiper-slide {
+  width: 220rpx;
+  height: 250rpx;
+}
+.m-equity .m-equity-box .swiper-slide .m-store {
+  background-image: url("https://m.7710mall.com/Uploads/xxc/m_store.png");
+}
+.m-equity .m-equity-box .swiper-slide .m-commission {
+  background-image: url("https://m.7710mall.com/Uploads/xxc/m_commission.png");
+}
+.m-equity .m-equity-box .swiper-slide .m-fans {
+  background-image: url("https://m.7710mall.com/Uploads/xxc/m_fans.png");
+}
+.m-equity .m-equity-box .swiper-slide .m-accumulate {
+  background-image: url("https://m.7710mall.com/Uploads/xxc/m_accumulate.png");
+}
+.m-equity .m-equity-box .swiper-slide .equity-list {
+  width: 210rpx;
+  height: 250rpx;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+.m-equity .m-equity-box .swiper-slide .equity-list .one {
+  width: 100%;
+  font-size:26rpx;
+  line-height: 38rpx;
+  color: #ff7c3c;
+  text-align: center;
+  margin-top: 140rpx;
+}
+.m-equity .m-equity-box .swiper-slide .equity-list .two {
+  width: 100%;
+  font-size: 20rpx;
+  color: #ff8c54;
+  text-align: center;
+  line-height: 30rpx;
+  margin-top: 6rpx;
+}
+/* 会员权益标题 */
+.m-tit {
+  width: 100%;
+  font-size: 12rpx;
+  height:80rpx;
+  background: #fff;
+}
+.m-tit .m-tit-box {
+  height: 80rpx;
+  padding: 0 32rpx;
+}
+.m-tit .m-tit-box .left {
+  font-size: 24rpx;
+  color: #434343;
+  line-height: 80rpx;
+}
+.m-tit .m-tit-box .right {
+  font-size: 22rpx;
+  color: #fd8d55;
+  line-height: 80rpx;
+  float: right;
+}
+

@@ -77,9 +77,6 @@
 }
 .list .bot {
   padding: 0 32rpx;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   height: 90rpx;
 }
 .list .bot .left,.list .bot .right {

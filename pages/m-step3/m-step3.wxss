@@ -4,14 +4,10 @@
 
 page {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
 }
 
 .content {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
 }
 
 .content .main {
@@ -20,12 +16,11 @@ page {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .bg {
   width: 100%;
-  height: 1202rpx;
+  height: 1220rpx;
 }
 
 .top {
@@ -42,6 +37,7 @@ page {
 .top .finish-mask {
   position: absolute;
   top: 0;
+  left: 116rpx;
   display: inline-block;
   width: 514rpx;
   height: 400rpx;
@@ -52,14 +48,14 @@ page {
   text-align: center;
   font-size: 32rpx;
   color: #434343;
-  margin-top: 50rpx;
+  margin-top: 15rpx;
 }
 
 .sub-tit {
   font-size: 28rpx;
   color: #434343;
   text-align: center;
-  margin-top: 40rpx;
+  margin-top: 20rpx;
 }
 
 .sub-tit .mission {
@@ -76,25 +72,25 @@ page {
   font-size: 24rpx;
   color: #61aefe;
   background: #fff;
-
   padding: 0;
-  top:-20rpx;
- 
+  top: -20rpx;
 }
-.way button::after{
+
+.way button::after {
   border: none;
-} 
+}
+
 .my-team {
   position: absolute;
-  width: 123rpx;
-  height: 40rpx;
+  width: 156rpx;
+  height: 52rpx;
   bottom: 70rpx;
   right: 0rpx;
 }
 
 .my-team image {
-  width: 123rpx;
-  height: 40rpx;
+  width: 156rpx;
+  height: 52rpx;
 }
 
 .my-team button {
@@ -102,10 +98,34 @@ page {
   top: 0;
   left: 0;
   background: #fff;
-   opacity: 0;
-  filter: opacity(0); 
-  width: 123rpx;
-  height: 40rpx;
+  opacity: 0;
+  filter: opacity(0);
+  width: 156rpx;
+  height: 52rpx;
+}
+
+.add-team {
+  position: absolute;
+  width: 156rpx;
+  height: 52rpx;
+  bottom: 0rpx;
+  left: 0rpx;
+}
+
+.add-team image {
+  width: 156rpx;
+  height: 52rpx;
+}
+
+.add-team button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  opacity: 0;
+  filter: opacity(0);
+  width: 156rpx;
+  height: 52rpx;
 }
 
 .way .iconfont {
@@ -115,11 +135,6 @@ page {
 
 .box {
   padding: 0 60rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
   margin-top: 50rpx;
 }
 
@@ -129,27 +144,24 @@ page {
 }
 
 .lists {
-   display: -webkit-box;
+  display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex; 
+  display: flex;
   width: 100%;
   height: 80rpx;
   overflow: hidden;
 }
 
 .lists view {
- height: 80rpx;
- /* overflow: hidden;
-  float: left; 
-  width: 33%; */
+  height: 80rpx;
   text-align: center;
-   -webkit-box-flex: 1;
+  -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
-  flex: 1; 
+  flex: 1;
   font-size: 26rpx;
   line-height: 80rpx;
 }
@@ -167,23 +179,25 @@ page {
 }
 
 .big-box {
+  padding: 0 60rpx;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   margin-top: 50rpx;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .item {
   text-align: center;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  width: 108rpx;
+  padding-bottom: 20rpx;
   font-size: 26rpx;
   line-height: 80rpx;
+  margin: 0 9rpx;
 }
 
 .item .one {
@@ -232,14 +246,15 @@ page {
 
 .item .two {
   font-size: 24rpx;
-  line-height: 60rpx;
+  line-height: 30rpx;
   color: #ff712b;
 }
 
 .op {
   width: 100%;
+  height: 70rpx;
   text-align: center;
-  margin-top: 10rpx;
+  margin-top: 30rpx;
 }
 
 .op text, .op button {
@@ -247,11 +262,11 @@ page {
   width: 230rpx;
   height: 66rpx;
   line-height: 66rpx;
-  box-sizing: border-box;
+   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
+  -o-box-sizing: border-box; 
   font-size: 26rpx;
   text-align: center;
   border-radius: 66rpx;
@@ -272,6 +287,11 @@ page {
   border: 1rpx solid #ff712b;
 }
 
+.op .op3 {
+  color: #ff712b;
+  border: 1rpx solid #ff712b;
+}
+
 /* 规则 */
 
 .close {
@@ -281,12 +301,13 @@ page {
   z-index: 1000;
   /* background: #000; */
 }
-.close button{
+
+.close button {
   width: 50rpx;
   height: 50rpx;
   background: red;
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   opacity: 0;
   filter: opacity(0);
@@ -309,11 +330,6 @@ page {
 
 .hd-rule-box {
   padding: 50rpx 20rpx 20rpx 20rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -o-box-sizing: border-box;
   background: #fff;
   border-radius: 10rpx;
   -webkit-border-radius: 10rpx;
@@ -332,11 +348,6 @@ page {
 }
 
 .hd-rule .rule {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -mos-box-sizing: border-box;
-  -mz-box-sizing: border-box;
   font-size: 22rpx;
   color: #a8a8a8;
   line-height: 45rpx;
@@ -464,11 +475,7 @@ page {
   -ms-border-radius: 8rpx;
   -moz-border-radius: 8rpx;
   -o-border-radius: 8rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
+
   margin: 0 10rpx;
   color: #ff712b;
 }

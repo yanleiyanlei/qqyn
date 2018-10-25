@@ -1,5 +1,6 @@
 //获取应用实例
-const app = getApp()
+const app = getApp();
+var user = require("../../lib/js/user.js")
 // pages/qfhot/qfhot.js
 Page({
 
@@ -9,43 +10,18 @@ Page({
   data: {
     banner:[],
     goods:[],
-    show:"display:none"
+    mshow:"display:none"
   },
   close: function () {
     this.setData({
-      show: "display:none"
+      mshow: "display:none"
     })
   },
   UserInfo: function (e) {
     this.setData({
-      show: "display:none"
+      mshow: "display:none"
     })
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+    user.user(e);
   },
   // 添加购物车=================
   cart: function (e) {
@@ -53,7 +29,7 @@ Page({
     var uid = wx.getStorageSync("userinfo").uid;
     if (!uid) {
       that.setData({
-        show: "display:block"
+        mshow: "display:block"
       })
     } else {
       var uid = wx.getStorageSync("userinfo").uid;

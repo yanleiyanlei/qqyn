@@ -1,4 +1,4 @@
-const app=getApp();
+const app = getApp();
 Page({
   data: {
     region: ["省", "市", "区"],
@@ -7,18 +7,25 @@ Page({
     akey: 0
   },
   onLoad: function (options) {
-     this.setData({
-       page:options.page,
-       goods_id:options.goods_id,
-       spec_key:options.spec_key,     
-       num:options.num,   
+    this.setData({
+      page: options.page,
+      goods_id: options.goods_id,
+      spec_key: options.spec_key,
+      num: options.num,
     })
   },
-
   bindRegionChange: function (e) {
-    this.setData({
-      region: e.detail.value
-    })
+    if (e.detail.value[0] == "北京市" || e.detail.value[0] == "天津市" || e.detail.value[0] == "河北省") {
+      this.setData({
+        region: e.detail.value
+      })
+    } else {
+      wx.showToast({
+        title: '商城暂时仅支持京津冀的配送',
+        icon: "none",
+        duration: 3000
+      })
+    }
   },
   defaltAddress: function (e) {
     var flag = e.currentTarget.dataset.defalt;
@@ -104,7 +111,7 @@ Page({
     var obj = { member_id: uid, type: 1, akey: akey, address_name: formData.address_name, address_phone: formData.address_phone, beiyong_phone: formData.beiyong_phone, address_sheng: formData.address_sheng, address_content: formData.address_content }
     if (formData.address_name != "" && regPhone.exec(formData.address_phone) && formData.address_sheng != "" && formData.address_content != "" && (regPhone.exec(formData.beiyong_phone) || formData.beiyong_phone == "")) {
       wx.request({
-        url: app.globalData.Murl+'/Applets/User/AddAddress',
+        url: app.globalData.Murl + '/Applets/User/AddAddress',
         data: obj,
         method: "post",
         success: function (res) {
@@ -117,14 +124,14 @@ Page({
             setTimeout(function () {
               wx.hideToast()
             }, 1000)
-          } else if(res.data.result==1){
+          } else if (res.data.result == 1) {
             wx.redirectTo({
-              url: '/pages/newaddress/newaddress?page='+that.data.page+'&goods_id='+that.data.goods_id+'&spec_key='+that.data.spec_key+'&num='+that.data.num,
+              url: '/pages/newaddress/newaddress?page=' + that.data.page + '&goods_id=' + that.data.goods_id + '&spec_key=' + that.data.spec_key + '&num=' + that.data.num,
             })
           }
 
         },
-        fail:function(){
+        fail: function () {
           wx.showToast({
             title: '系统繁忙',
             icon: "none",

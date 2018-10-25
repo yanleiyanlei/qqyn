@@ -1,3 +1,4 @@
+<!-- 个人中心地址页面 -->
 <view class="wrapper">
   <!-- 地址为空 -->
 
@@ -32,7 +33,7 @@
               </view>
             </view>
           </view>
-          <view class="bot">
+          <view class="bot border-box">
             <view class="left" wx:if="{{item.akey==1}}" data-defalt="{{item.akey}}" data-id="{{item.member_id}}"  data-aid="{{item.id}}" bindtap="defaltAddress">
               <text class="iconfont icon-chuangyikongjianICON_fuzhi- choose "></text>
               <text>默认地址</text>

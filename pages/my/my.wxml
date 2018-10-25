@@ -1,12 +1,13 @@
-<view class="transMark" style="{{show}}">
+<!-- 个人中心页面 -->
+<!-- <view class="transMark" style="{{mshow}}">
   <view class="open-tip">
     您未开通权限，部分功能无法正常使用，请先开通权限
   </view>
-  <!-- <view class="open" bindtap='open'>
-    开通权限
-  </view> -->
   <button open-type='getUserInfo' bindgetuserinfo='UserInfo' class="open">获得权限</button>
-</view>
+</view> -->
+<import src="/lib/template/userInfo.wxml" />
+<template is="user" data="{{mshow}}">
+</template>
 <view class="m-content">
   <view class="top-up clearfix">
     <navigator url="/pages/m-setting/m-setting">
@@ -26,8 +27,8 @@
         <text class="level">{{levelname}}</text>
       </view>
     </view>
-    <view class="info-list">
-      <view class="list">
+    <view class="info-list flex">
+      <view class="list flex1">
         <view class="one">
           <text>{{member_money}}</text>
         </view>
@@ -41,8 +42,19 @@
           </navigator>
         </view>
       </view>
+      <view class="list flex1">
+        <navigator opent-type="redirectTo" url="/pages/m-commission/m-commission" hover-class='Nhover'>
+          <view class="one">
+            <text>{{commission}}</text>
+          </view>
+          <view class="two">
 
-      <view class="list">
+            <text>佣金</text>
+
+          </view>
+        </navigator>
+      </view>
+      <view class="list flex1">
         <navigator opent-type="redirectTo" url="/pages/m-coupon/m-coupon" hover-class='Nhover'>
           <view class="one">
             <text>{{yhq}}</text>
@@ -67,8 +79,8 @@
       </view>
     </view>
     <!-- 订单分类 -->
-    <view class="m-info">
-      <view class="list">
+    <view class="m-info flex">
+      <view class="list flex1">
         <navigator opent-type="redirectTo" hover-class='Nhover' url="/pages/m-order/m-order?sta=1">
           <view class="one">
             <image src="../../image/my/order_fk.png"></image>
@@ -78,8 +90,8 @@
           </view>
         </navigator>
       </view>
-      <view class="list">
-        <navigator opent-type="redirectTo"  hover-class='Nhover' url="/pages/m-order/m-order?sta=2">
+      <view class="list flex1">
+        <navigator opent-type="redirectTo" hover-class='Nhover' url="/pages/m-order/m-order?sta=2">
           <view class="one">
             <image src="../../image/my/order_fh.png"></image>
           </view>
@@ -88,8 +100,8 @@
           </view>
         </navigator>
       </view>
-      <view class="list">
-        <navigator opent-type="redirectTo"  hover-class='Nhover' url="/pages/m-order/m-order?sta=3">
+      <view class="list flex1">
+        <navigator opent-type="redirectTo" hover-class='Nhover' url="/pages/m-order/m-order?sta=3">
           <view class="one">
             <image src="../../image/my/order_sh.png"></image>
           </view>
@@ -98,8 +110,8 @@
           </view>
         </navigator>
       </view>
-      <view class="list">
-        <navigator opent-type="redirectTo"  hover-class='Nhover' url="/pages/m-order/m-order?sta=4">
+      <view class="list flex1">
+        <navigator opent-type="redirectTo" hover-class='Nhover' url="/pages/m-order/m-order?sta=4">
           <view class="one">
             <image src="../../image/my/order_pj.png"></image>
           </view>
@@ -110,10 +122,67 @@
       </view>
     </view>
   </view>
+  <!-- 会员权益 -->
+  <view class="m-equity">
+    <view class="m-tit border1">
+      <view class="m-tit-box clearfix">
+        <text class="left">会员权益</text>
+            <!-- <text class="iconfont icon-kefu" style="color: #fd8d555!important;font-size: 0.36rem;margin-right: 0.1rem;font-weight: normal;"></text> -->
+
+        <text class="right" bindtap="link"><text class="iconfont icon-kefu" style="color: #fd8d555!important;font-size:36rpx;margin-right: 10rpx;font-weight: normal;"></text>联系客服</text>
+
+      </view>
+    </view>
+    <view class="m-equity-box">
+      <swiper class="swiper-container" display-multiple-items="3.2">
+        <!-- <view class="swiper-wrapper"> -->
+        <swiper-item class="swiper-slide">
+         
+            <view class="m-store equity-list" bindtap='goindex'>
+              <view class="one">我的小店</view>
+              <view class="two">无小店就无客源</view>
+            </view>
+          
+        </swiper-item>
+        <swiper-item class=" swiper-slide">
+          <navigator hover-class="Nhover" url="/pages/m-commission/m-commission">
+            <view class="m-commission equity-list">
+              <view class="one">我的佣金</view>
+              <view class="two">天天坐躺赚收入</view>
+            </view>
+          </navigator>
+        </swiper-item>
+        <swiper-item class="swiper-slide">
+          <navigator href="" hover-class="Nhover" url="/pages/m-fans/m-fans">
+            <view class="m-fans  equity-list">
+              <view class="one">我的青粉</view>
+              <view class="two">招人不难合作不累</view>
+            </view>
+          </navigator>
+        </swiper-item>
+        <swiper-item class="swiper-slide" >
+          <navigator url="/pages/m-integral/m-integral" hover-class="Nhover">
+            <view class="m-accumulate equity-list">
+              <view class="one">我的积分</view>
+              <view class="two">任务积分天天领</view>
+            </view>
+          </navigator>
+        </swiper-item>
+        <!-- </view> -->
+      </swiper>
+    </view>
+
+  </view>
+
+
+
+
+
+
   <!-- 礼品卡 -->
-  <navigator class="card" hover-class='Nhover' url='../secondGoods/secondGoods?page=2&twoType=96' opent-type="redirectTo">
-    <image src="../../image/my/m_card.png"></image>
-  </navigator>
+  
+<image  class="card" bindtap='members' src="http://ss.bjzzdk.com/Public/Home/img/m_card.png"></image>
+
   <!-- 我的专属 -->
   <view class="my-exclusive">
     <view class="m-tit border1">
@@ -124,18 +193,18 @@
         </navigator> -->
       </view>
     </view>
-    <view class="my-exclusive-list" style="border-bottom:1rpx dashed #eee">
+    <view class="my-exclusive-list border-box" style="border-bottom:1rpx dashed #eee">
       <navigator opent-type="redirectTo" class=" clearfix" url="/pages/m-address/m-address" hover-class='Nhover'>
         <image src="../../image/my/m_address.png"></image>
         <text class="one">收货地址</text>
         <text class="iconfont icon-iconfontyoujiantou"></text>
       </navigator>
     </view>
-    <view class="my-exclusive-list " bindtap="link">
+    <view class="my-exclusive-list border-box" bindtap="link">
       <!-- <navigator class=" clearfix" hover-class='Nhover' url="/pages/link/link"> -->
-        <image src="../../image/my/m_kf.png"></image>
-        <text class="one">联系客服</text>
-        <text class="iconfont icon-iconfontyoujiantou"></text>
+      <image src="../../image/my/m_kf.png"></image>
+      <text class="one">联系客服</text>
+      <text class="iconfont icon-iconfontyoujiantou"></text>
       <!-- </navigator> -->
     </view>
   </view>

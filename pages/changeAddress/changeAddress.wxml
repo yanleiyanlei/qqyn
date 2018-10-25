@@ -1,3 +1,4 @@
+<!-- 个人中心修改地址页面 -->
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
 

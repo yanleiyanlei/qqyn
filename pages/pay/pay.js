@@ -8,11 +8,15 @@ Page({
 		actual_fee: '20',
 		actualpayment: '',
 		orderid: [],
-		clock: ''
+		clock: '',
+    shows:"display:none",
+    reduce_moeny: '',
+    satisfy_money: '',
+    now_time:''
 	},
 	/*取消支付*/
 	qxpay(){
-	 console.log(1);
+	 //console.log(1);
      wx.redirectTo ({
 			url: '../m-order/m-order?sta=0',
 				})
@@ -79,14 +83,22 @@ Page({
 							duration: 2000
 						})
 					} else if (datalist.data == 1) {
-						wx.showToast({
-							title: '支付成功',
-							icon: 'success',
-							duration: 2000
-						})
-						wx.redirectTo({
-								url: '../m-order/m-order?sta='+0,
-							})
+
+            if (that.data.is_goods_coupon == 0) {
+              wx.showToast({
+                title: '支付成功',
+                icon: 'success',
+                duration: 2000
+              })
+              wx.redirectTo({
+                url: '../m-order/m-order?sta=' + 0,
+              })
+            } else if (that.data.is_goods_coupon == 1) {
+              that.setData({
+                shows: "display:block",
+                wallets_password_flag:false,
+              })
+            }
 					} else if (datalist.data == -4) {
 						wx.showToast({
 							title: '余额不足,请充值',
@@ -104,6 +116,17 @@ Page({
 			})
 		}
 	},
+  //立即使用优惠券
+  goshops(){
+    console.log(1);
+    this.setData({
+      shows: "display:none",
+      wallets_password_flag: false,
+    })
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 	set_Focus() {//聚焦input
 		console.log('isFocus', this.data.isFocus)
 		this.setData({
@@ -162,14 +185,20 @@ Page({
 									'signType': 'MD5',
 									'paySign': res.data['paySign'],
 									'success': function (res) {
-										wx.showToast({
-											title: '支付成功',
-											icon: 'success',
-											duration: 2000
-										})
-										wx.redirectTo({
-												url: '../m-order/m-order?sta='+0,
-											})
+                    if (_this.data.is_goods_coupon==0){
+                      wx.showToast({
+                        title: '支付成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                      wx.redirectTo({
+                        url: '../m-order/m-order?sta=' + 0,
+                      })
+                    } else if (_this.data.is_goods_coupon == 1){
+                         _this.setData({
+                           shows:"display:block",
+                         })
+                    }
 									},
 									'fail': function (res) {
 
@@ -202,7 +231,17 @@ Page({
 			complete: function (res) { console.log(res) },
 		})
 	},
+//关闭优惠券
+  offss(){
+    this.setData({
+      shows: "display:none",
+    })
+    wx.redirectTo({
+      url: '../m-order/m-order?sta=' + 0,
+    })
+  },
 	onLoad: function (options) {
+  
 		/*获取当前时间*/
 		var timestamp = (new Date()).valueOf();
 		/*获取30分钟后的时间*/
@@ -211,6 +250,23 @@ Page({
 			now.setMinutes(now.getMinutes() + 30);
 			return now;
 		}
+    var is_goods_coupon = options.is_goods_coupon;
+    console.log(is_goods_coupon);
+    //判读是否使用 商品券
+    if(is_goods_coupon==1){
+      var reduce_moeny = options.reduce_moeny;
+      var satisfy_money = options.satisfy_money;
+      var now_time = options.now_time;
+      console.log(satisfy_money);
+      this.setData({
+        reduce_moeny: reduce_moeny,
+        satisfy_money: satisfy_money,
+        now_time: now_time,
+      })
+     }
+    this.setData({
+      is_goods_coupon: is_goods_coupon,
+    })
 		var date = new Date(getSpeicalTime());
 		var time2 = date.valueOf();
 		var times = time2 - timestamp;

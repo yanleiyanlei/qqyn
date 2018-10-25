@@ -12,10 +12,16 @@ Page({
       url: '../index/index'
     });
   },
+  goshop(){
+    wx.switchTab({
+      url: '../index/index'
+    });
+  },
   onLoad: function (options) {
-    var coupon = options.coupon;
+    var rice_rand = options.rice_rand;
+    console.log(options)
     this.setData({
-      coupon: coupon
+      rice_rand: rice_rand
     })
   }
 })

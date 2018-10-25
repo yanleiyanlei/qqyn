@@ -21,7 +21,7 @@ page{
 	left: 120rpx;
 }
 .titles{
-	width: 511rpx;
+	width: 520rpx;
 	height: 90rpx;
 	text-align: center;
 	position: absolute;
@@ -52,7 +52,7 @@ page{
 }
 .btntext{
 	position: absolute;
-	top: 900rpx;
+  bottom: 250rpx;
 	left: 120rpx;
 	width: 511rpx;
     height: 70rpx; 
@@ -68,7 +68,58 @@ page{
 	text-align: center;
 	line-height: 70rpx;
 }
-
+.titletwos{
+  position: absolute;
+  bottom: 302rpx;
+  left: 23rpx;
+  width: 700rpx;
+  height: 221rpx;
+  background: url("https://m.7710mall.com/Uploads/xxc/coupon_s.png") no-repeat;
+  background-size: 100% 100%;
+}
+.prices{
+  position: absolute;
+  left: 20rpx;
+  top: 67rpx;
+  font-size: 60rpx;
+  color: #ff712b;
+  left: 65rpx;
+}
+.prices_a{
+  position: absolute;
+  width: 336rpx;
+  height: 97rpx;
+  right: 95rpx;
+  top: 50rpx;
+  text-align: left;
+}
+.prices_a text{
+  display: block;
+}
+.tiltes_o{
+  font-size: 32rpx;
+  color: #ff712b;
+  margin-left: 10rpx;
+}
+.titles_b{
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  color: #434343;
+}
+.biaoz{
+  position: absolute;
+  width: 35rpx;
+  height: 118rpx;
+  left: 10rpx;
+  top: 50rpx;
+}
+.biaoz text{
+  display: block;
+  text-align: center;
+  line-height: 30rpx;
+  font-size: 20rpx;
+  color: #fff;
+}
 .btntext .qxbtn{
 	border:1rpx solid #ff712b;
 	background: #fff;

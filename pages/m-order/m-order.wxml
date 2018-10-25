@@ -1,7 +1,31 @@
+<!-- 个人中心，订单页面 -->
 
+<!-- 优惠券 -->
+<view class="mask" style="{{tt}}"></view>
+<view class="success" style="{{tt}}">
+  <image class="close" bindtap='close' src="https://m.7710mall.com/Uploads/xxc//close.png"></image>
+  <view class="success-con">
+    <image class="success-img" src="https://m.7710mall.com/Uploads/xxc//hd_fx.png">
+    </image>
+    <!-- <block wx:for="{{pop_msg}}">
+      <view class="one">{{item}}</view>
+    </block> -->
+      <view class="one">{{tip}}</view> 
+    <!-- <view class="one">11111</view> -->
+    <view class="two">有效期至：{{end}}</view>
+  </view>
+  <view class="op-box">
+    <navigator url="/pages/index/index" open-type='switchTab' hover-class='Nhover'>
+      <view class="use">立即使用</view>
+    </navigator>
+  
+  </view>
+  <image src="https://m.7710mall.com/Uploads/xxc//m-fsuccess.png" class="bg">
+  </image>
+</view>
 <!-- 切换 -->
-<view class="nav border1">
-  <view class="nav-box">
+<view class="nav border1 border-box">
+  <view class="nav-box border-box">
     <view class="{{active==0?'active':''}}" data-sta="0" bindtap="orderReload">
       <text>全部</text>
     </view>
@@ -32,7 +56,7 @@
 </block>
 <!-- 订单信息 -->
 <block wx:else>
-  <view class="order-info" wx:for="{{orderlist}}">
+  <view class="order-info border-box" wx:for="{{orderlist}}">
     <view class="order-Num border1">
       <text class="order-bh">订单编号：{{item.order_number}}</text>
       <text class="order-state" wx:if="{{item.order_type==1&&item.orderstatus==0}}">待付款</text>
@@ -86,7 +110,7 @@
       <block wx:if="{{item.order_type==1&&item.orderstatus==0}}">
         <text class="cancel" style="margin-right:40rpx;" data-oid="{{item.show_id}}" bindtap="cancelOrder" hover-class="Nhover">取消订单</text>
         <!-- <navigator url="/pages/mpay/mpay?oid={{item.show_id}}&money={{item.actualpayment}}&sta={{active}}&wz=1"> -->
-          <text class="pay" data-oid="{{item.show_id}}" data-orderNum="{{item.order_number}}" data-money="{{item.actualpayment}}"  data-sta="{{active}}" hover-class="Nhover" bindtap="pay">确认付款</text>
+        <text class="pay" data-oid="{{item.show_id}}" data-orderNum="{{item.order_number}}" data-money="{{item.actualpayment}}" data-sta="{{active}}" hover-class="Nhover" bindtap="pay" data-coupon="{{item.coupon_type}}" data-end="{{item.release_time}}" data-tip="{{item.msg}}" >确认付款</text>
         <!-- </navigator> -->
       </block>
       <block wx:elif="{{item.order_type==1&&item.orderstatus==1}}">

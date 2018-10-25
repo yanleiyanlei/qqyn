@@ -15,9 +15,13 @@
   <view class='hotTit'>热门搜索</view>
   <view>
   <block wx:for="{{hot_seaech}}" >
-      <view bindtap='hotsearch' data-name="{{item.search_name}}">
+    <!--by yan.lei 前三个加了个样式 -->
+    <view style='color:#ff712b' wx:if="{{index<=2}}" bindtap='hotsearch' data-name="{{item.search_name}}">
         {{item.search_name}}
-      </view>
+    </view>
+    <view wx:if="{{index>2}}" bindtap='hotsearch' data-name="{{item.search_name}}">
+        {{item.search_name}}
+    </view>
   </block>  
 
   </view>

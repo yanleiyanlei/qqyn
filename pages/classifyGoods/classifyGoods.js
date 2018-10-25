@@ -1,5 +1,6 @@
 //获取应用实例
-const app = getApp()
+const app = getApp();
+var user = require("../../lib/js/user.js")
 // pages/classifyGoods/classifyGoods.js
 Page({
 
@@ -27,32 +28,7 @@ Page({
     this.setData({
       mshow: "display:none"
     })
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+    user.user(e);
   },
   // 添加购物车=================
 
@@ -112,6 +88,16 @@ Page({
             })
 
           }
+          if (res.data.status == 10) {
+            //by yan.lei 一键代发执行跳转
+            wx.navigateTo({
+              url: '../theorder/theorder?goods_id=' + goods_id + '&num=1' + '&spec_key=' + spec_key + '&page=' + 1,
+              success: function (res) { console.log(res) },
+              fail: function (res) { console.log(res) },
+              complete: function (res) { console.log(res) },
+            })
+
+          }
 
         },
         fail: function (res) {
@@ -144,6 +130,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var pid = options.pid;
+    if (pid) {
+      wx.setStorageSync("pid", pid);
+    }
+
     var that = this;
     // 获取购物车列表
     var uid = wx.getStorageSync("userinfo").uid;
@@ -258,7 +249,35 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    var pages = getCurrentPages()
+    var currentPage = pages[pages.length - 1]
+    var url = currentPage.route
+    var options = currentPage.options
+    console.log(url)
+    console.log(options)
+    var userinfo = wx.getStorageSync("userinfo");
+    var uid = userinfo.uid;
+    return {
+      title: '【青青优农】追求原始的味道',
+      path: '/pages/classifyGoods/classifyGoods?id=' + options.id + '&pid=' + uid,
+      imageUrl: '',
+      success: function (res) {
+        console.log(res)
+        // console.log
+        // wx.getShareInfo({
+        //   shareTicket: res.shareTickets[0],
+        //   success: function (res) {
+        //     console.log(res)
+        //   },
+        //   fail: function (res) { console.log(res) },
+        //   complete: function (res) { console.log(res) }
+        // })
+      },
+      fail: function (res) {
+        // 分享失败
+        //console.log(res)
+      }
+    }
   },
   // 最新商品查询=================
   newgoods: function () {

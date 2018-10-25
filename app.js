@@ -1,65 +1,23 @@
-
 //app.js
 App({
-  data:{
+  data: {
 
   },
-  onShow:function(options){
-   // console.log(options)
+  onShow: function(options) {
+    // console.log(options)
     var shareTickets = options.shareTicket;
-    if (options.scene == 1044) {
-      wx.login({
-        success: function (res) {
-          //console.log(shareTickets)
-          var code = res.code;
-          wx.getShareInfo({
-            shareTicket: shareTickets,
-            success: function (res) {
-              var encryptedData = res.encryptedData;
-              var iv = res.iv;
-              // console.log(res)
-              // console.log(code)
-              wx.request({
-                url: 'https://m.7710mall.com/index.php/Applets/Login/jiemi',
-                data: { encryptedData: encryptedData, iv: iv, code: code },
-                method: "post",
-                success: function (res) {
-                  //console.log(res.data)
-                }
-              })
-            },
-            fail: function (res) { console.log(res) },
-            complete: function (res) { }
-          })
 
-
-
-        }
-      })
-      // wx.getShareInfo({
-      //   shareTicket: options.shareTicket,
-      //   success: function (res) {
-      //     var encryptedData = res.encryptedData;
-      //     var iv = res.iv;
-      //     console.log(2222)
-      //     console.log(encryptedData)        
-      //   }
-      // })
-    }
-    //console.log("55555")
   },
-  onLaunch: function (res) {
-    //console.log(res)
+  onLaunch: function(res) {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
 
-
-    // 登录
-    // this.getUserDataToken();
+    // wx.getUpdateManager 在 1.9.90 才可用，请注意兼容
     
+
   },
   // getUserDataToken: function () {
   //   var that = this;
@@ -82,7 +40,7 @@ App({
   //               iv: res.iv
   //             },
   //             fail: function (res) {
-                
+
 
   //             },
   //             success: function (res) {
@@ -139,12 +97,6 @@ App({
   //               }
   //             }
   //           })
-
-
-
-
-
-
   //         }
   //       })
   //     }
@@ -152,8 +104,9 @@ App({
   // },
   globalData: {
     userInfo: null,
-    code:"1",
-    location:"北京",
-    Murl:"https://www.77farmers.com/index.php"
+    code: "1",
+    location: "北京",
+    //Murl: "https://m.7710mall.com/index.php"
+    Murl: "https://www.7710mall.com/index.php"
   }
 })

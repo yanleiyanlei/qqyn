@@ -19,7 +19,7 @@
   height: 230rpx;
   background: #fff;
   padding: 30rpx 30rpx 0 30rpx;
-  box-sizing: border-box;
+
 }
 
 .rhhqu {
@@ -28,7 +28,7 @@
   height: 190rpx;
   background: #fff;
   padding: 30rpx 30rpx 0 30rpx;
-  box-sizing: border-box;
+
 }
 
 .yxtime {
@@ -37,5 +37,5 @@
   height: 190rpx;
   background: #fff;
   padding: 30rpx 30rpx 0 30rpx;
-  box-sizing: border-box;
+
 }

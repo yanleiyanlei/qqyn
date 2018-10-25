@@ -6,10 +6,11 @@ var demo = new QQMapWX({
 })
 //获取应用实例
 const app = getApp()
-var common = require("../../lib/js/common.js");
+var user = require("../../lib/js/user.js")
+// var common = require("../../lib/js/common.js");
 Page({
   data: {
-    show: "display:none",
+    mshow: "display:none",
     cs: false,
     motto: 'Hello World',
     userInfo: {},
@@ -39,6 +40,11 @@ Page({
     goodsType: {},
     ewmimg: ["http://m.7710mall.com/Public/Home/img/m_ma.png"]
   },
+  gowx: function () {
+    wx.switchTab({
+      url: '/pages/members/members',
+    })
+  },
   previewImage: function (e) {
     //console.log("点击图片")
     wx.previewImage({
@@ -59,57 +65,58 @@ Page({
       url: '../logs/logs'
     })
   },
-  close:function(){
+  close: function () {
     this.setData({
-      show:"display:none"
+      mshow: "display:none"
     })
   },
   UserInfo: function (e) {
     this.setData({
-      show: "display:none"
+      mshow: "display:none"
     })
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+    user.user(e)
+    // wx.login({
+    //   success: function (res) {
+    //     var code = res.code;
+    //     var utoken = wx.getStorageSync("utoken");
+    //     wx.request({
+    //       //用户登陆URL地址，请根据自已项目修改
+    //       url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
+    //       method: "POST",
+    //       data: {
+    //         utoken: utoken,
+    //         code: code,
+    //         encryptedData: e.detail.encryptedData,
+    //         iv: e.detail.iv
+    //       },
+    //       fail: function (res) {
+    //       },
+    //       success: function (res) {
+    //         var utoken = res.data.utoken;
+    //         //设置用户缓存
+    //         wx.setStorageSync("utoken", utoken);
+    //         wx.setStorageSync("userinfo", res.data.userinfo);
+    //         //console.log("允许");
+    //       }
+    //     })
+    //   }
+    // })
   },
   // 添加购物车=================
   cart: function (e) {
-    var that=this;
+    var that = this;
     var uid = wx.getStorageSync("userinfo").uid;
     if (!uid) {
       that.setData({
-        show: "display:block"
+        mshow: "display:block"
       })
-    }else{
+    } else {
       var uid = wx.getStorageSync("userinfo").uid;
       var goods_id = e.currentTarget.dataset.goodsid;
       var spec_key = e.currentTarget.dataset.key;
       //console.log(uid)
       wx.request({
-        url: app.globalData.Murl+'/Applets/Cart/ajaxAddcart/',
+        url: app.globalData.Murl + '/Applets/Cart/ajaxAddcart/',
         data: {
           member_id: uid,//会员ID
           goods_id: goods_id, //商品ID
@@ -133,7 +140,7 @@ Page({
           })
           if (res.data.status == 1) {
             // 重新更新购物车数据表
-            const shopusr = app.globalData.Murl+"/Applets/Cart/ajaxCartList";
+            const shopusr = app.globalData.Murl + "/Applets/Cart/ajaxCartList";
             wx.request({
               url: shopusr,
               data: {
@@ -151,6 +158,13 @@ Page({
               }
             })
 
+          } else if (res.data.status == 10){//by yan.lei 一键代发执行跳转
+            wx.navigateTo({
+              url: '../theorder/theorder?goods_id=' + goods_id + '&num=1' + '&spec_key=' + spec_key + '&page=' + 1,
+              success: function (res) { console.log(res) },
+              fail: function (res) { console.log(res) },
+              complete: function (res) { console.log(res) },
+            })
           }
 
         },
@@ -164,7 +178,7 @@ Page({
           }, 2000)
 
         }
-      })    
+      })
     }
 
   },
@@ -179,15 +193,24 @@ Page({
     })
 
   },
-
-  onLoad: function () {
-    var uid = wx.getStorageSync("userinfo").uid;
-    var that = this;
+  onHide:function(){
+    app.globalData.store = 0
+  },
+   onLoad: function (options) {
+  //  console.log(options)
+     var pid = options.pid;
+     console.log(pid);
+     if(pid){
+       wx.setStorageSync("pid", pid);
+     }
+     var uid = wx.getStorageSync("userinfo").uid;
+     var that = this;
+     
     // 获取购物车列表
-   
-   
-   
-    const shopusr = app.globalData.Murl+"/Applets/Cart/ajaxCartList";
+
+
+
+    const shopusr = app.globalData.Murl + "/Applets/Cart/ajaxCartList";
     wx.request({
       url: shopusr,
       data: {
@@ -284,7 +307,7 @@ Page({
     // 首页banner轮播=========================================
 
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/banner',
+      url: app.globalData.Murl + '/Applets/Index/banner',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -384,7 +407,7 @@ Page({
 
     //nav导航图片及连接=======================================
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/icon',
+      url: app.globalData.Murl + '/Applets/Index/icon',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -406,7 +429,7 @@ Page({
     })
     //青青活动图片及跳转=================================
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/qqhd',
+      url: app.globalData.Murl + '/Applets/Index/qqhd',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -444,7 +467,7 @@ Page({
     })
     //今日推荐商品=======================================
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/recommend',
+      url: app.globalData.Murl + '/Applets/Index/recommend',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -467,7 +490,7 @@ Page({
 
     //青粉推荐=========================================
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/hot',
+      url: app.globalData.Murl + '/Applets/Index/hot',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -492,7 +515,7 @@ Page({
     })
     // 商品四个类目============================================
     wx.request({
-      url: app.globalData.Murl+'/Applets/Index/goods_list',
+      url: app.globalData.Murl + '/Applets/Index/goods_list',
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -522,23 +545,46 @@ Page({
 
   },
   onShow: function () {
-      var that = this;
-    var uid = wx.getStorageSync("userinfo").uid;
-    if (!uid) {
+    var that = this;
+    console.log(app.globalData.store)
+    if (app.globalData.store == 1) {
       that.setData({
-        show: "display:block"
+        store: true
       })
     } else {
       that.setData({
-        show: "display:none"
+        store: false
       })
     }
-  
+    if (app.globalData.store == 1) {
+      wx.request({
+        url: app.globalData.Murl + "/Applets/User/my_shop",
+        data: { member_id: wx.getStorageSync("userinfo").uid },
+        method: 'post',
+        success: function (res) {
+
+          that.setData({
+            shop: res.data
+          })
+        }
+      })
+    }
+    var uid = wx.getStorageSync("userinfo").uid;
+    if (!uid) {
+      that.setData({
+        mshow: "display:block"
+      })
+    } else {
+      that.setData({
+        mshow: "display:none"
+      })
+    }
+
     //console.log(1)
-  
+
     // 获取购物车列表
     var uid = wx.getStorageSync("userinfo").uid;
-    const shopusr = app.globalData.Murl+"/Applets/Cart/ajaxCartList";
+    const shopusr = app.globalData.Murl + "/Applets/Cart/ajaxCartList";
     wx.request({
       url: shopusr,
       data: {
@@ -557,21 +603,23 @@ Page({
     })
   },
   onShareAppMessage: function () {
+    var userinfo = wx.getStorageSync("userinfo");
+    var uid = userinfo.uid;
     return {
-      title: '青青优农',
-      path: '/pages/index/index?id=123',
+      title: '【青青优农】追求原始的味道',
+      path: '/pages/index/index?id=' + 123 + '&pid=' + uid,
       imageUrl: '',
       success: function (res) {
         console.log(res)
         // console.log
-        wx.getShareInfo({
-          shareTicket: res.shareTickets[0],
-          success: function (res) {
-            console.log(res)
-          },
-          fail: function (res) { console.log(res) },
-          complete: function (res) { console.log(res) }
-        })
+        // wx.getShareInfo({
+        //   shareTicket: res.shareTickets[0],
+        //   success: function (res) {
+        //     console.log(res)
+        //   },
+        //   fail: function (res) { console.log(res) },
+        //   complete: function (res) { console.log(res) }
+        // })
       },
       fail: function (res) {
         // 分享失败

@@ -31,11 +31,7 @@ page {
 
 .hd-rule .rule {
   padding: 0 44rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -mos-box-sizing: border-box;
-  -mz-box-sizing: border-box;
+
   font-size: 22rpx;
   color: #a8a8a8;
   line-height: 40rpx;
@@ -76,11 +72,7 @@ page {
   margin-top: 36rpx;
   border-radius: 50rpx;
   border: 1rpx solid #ff712b;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -mos-box-sizing: border-box;
-  -mz-box-sizing: border-box;
+
 }
 
 .more {

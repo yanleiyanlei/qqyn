@@ -1,4 +1,4 @@
-const app=getApp();
+const app = getApp();
 Page({
 
   /**
@@ -12,8 +12,8 @@ Page({
     expressName: "",
     expressNum: "",
     logistic: "",
-    sta:false,
-    lstart:false
+    sta: false,
+    lstart: false
   },
 
   /**
@@ -21,7 +21,7 @@ Page({
    */
   onLoad: function (options) {
     var userInfo = wx.getStorageSync("userinfo");
-     var uid = userInfo.uid;
+    var uid = userInfo.uid;
     // var uid=62;
     var that = this;
     var oid = options.oid;
@@ -32,40 +32,119 @@ Page({
     console.log(uid)
     console.log(oid)
     wx.request({
-      url: app.globalData.Murl+'/Applets/User/logistics',
-      data: { member_id: uid, show_id: oid },
+      url: app.globalData.Murl + '/Applets/User/logistics',
+      data: { member_id: uid, show_id: oid},
       method: "post",
       success: function (res) {
         console.log(res)
-        if (res.data.xml.Head == "OK"){
-          var l = res.data.xml.Body.RouteResponse.Route.length;
-          if (res.data.xml.Body.RouteResponse.Route[l-2]['@attributes'].opcode == 80){
+        // 顺风
+        if (res.data.ordershow.courierservices == 2) {
+          that.setData({
+            express: 2
+          })
+
+          if (res.data.xml.Head == "OK") {
+            if (res.data.xml.Body != "") {
+              var l = res.data.xml.Body.RouteResponse.Route.length;
+              if (res.data.xml.Body.RouteResponse.Route[l - 2]['@attributes'].opcode == 80) {
+                that.setData({
+                  sta: true
+                })
+              }
+              that.setData({
+                logisticImg: res.data.order[0].thumbnails,
+                logisticNum: res.data.order_num,
+                expressName: res.data.ordershow.express_name,
+                expressNum: res.data.ordershow.couriernumber,
+                logistic: res.data.xml.Body.RouteResponse.Route,
+                lstart: true
+              })
+            } else {
+              that.setData({
+                logisticImg: res.data.order[0].thumbnails,
+                logisticNum: res.data.order_num,
+                expressName: res.data.ordershow.express_name,
+                expressNum: res.data.ordershow.couriernumber,
+                lstart: false
+              })
+            }
+
+            //console.log(res.data.order[0].thumbnails)
+
+          } else {
             that.setData({
-              sta:true
+              logisticImg: res.data.order[0].thumbnails,
+              logisticNum: res.data.order_num,
+              expressName: res.data.ordershow.express_name,
+              expressNum: res.data.ordershow.couriernumber,
+
+            })
+          }
+
+
+        }
+       //万家康冷链
+        if (res.data.ordershow.courierservices == 5) {
+          that.setData({
+            express: 5,
+            logisticImg: res.data.order[0].thumbnails,
+            logisticNum: res.data.order_num,
+            expressNum: res.data.ordershow.express_name,
+            sta: true
+          })
+          if (res.data.ordershow.orderstatus==1){
+           that.setData({
+             expressName: '待发货'
+           })
+          } else if (res.data.ordershow.orderstatus == 2){
+            that.setData({
+              expressName: '已由万家康冷链发货'
+            })
+          } else if (res.data.ordershow.orderstatus == 3){
+            that.setData({
+              expressName: '已完成'
+            })
+          }
+        }
+
+        // 中通
+        if (res.data.ordershow.courierservices == 4) {
+          that.setData({
+            express: 4
+          })
+          console.log(9999)
+          // console.log(res.data.xml.data[0])
+          if (res.data.xml.data[0].traces.length>0) {
+            that.setData({
+              logisticImg: res.data.order[0].thumbnails,
+              logisticNum: res.data.order_num,
+              expressName: res.data.ordershow.express_name,
+              expressNum: res.data.ordershow.couriernumber,
+              logistic: res.data.xml.data[0].traces,
+              lstart: true
             })
 
+            var l = res.data.xml.data[0].traces.length - 1
+            if (res.data.xml.data[0].traces[l].scanType == "SIGNED" || res.data.xml.data[0].traces[l].scanType == "签收") {
+
+              that.setData({
+                sta: true
+              })
+            }
+
+          } else {
+            that.setData({
+              logisticImg: res.data.order[0].thumbnails,
+              logisticNum: res.data.order_num,
+              expressName: res.data.ordershow.express_name,
+              expressNum: res.data.ordershow.couriernumber,
+              lstart: false
+
+            })
           }
-        
-          that.setData({
-            logisticImg: res.data.order[0].thumbnails,
-            logisticNum: res.data.order_num,
-            expressName: res.data.ordershow.express_name,
-            expressNum: res.data.ordershow.couriernumber,
-            logistic: res.data.xml.Body.RouteResponse.Route,
-            lstart:true
-          })
-          
-        }else{
-          that.setData({
-            logisticImg: res.data.order[0].thumbnails,
-            logisticNum: res.data.order_num,
-            expressName: res.data.ordershow.express_name,
-            expressNum: res.data.ordershow.couriernumber,
-            
-          })
         }
       },
-      fail:function(){
+      fail: function () {
         wx.showToast({
           title: '系统繁忙',
           icon: 'none',

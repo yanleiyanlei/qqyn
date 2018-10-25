@@ -182,11 +182,6 @@
 .m-box .m-list .m-list-left .zl{
   padding: 60rpx 0;
   height: 222rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-   -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
   width: 50rpx;
   position: absolute;
   font-size: 22rpx;
@@ -248,21 +243,7 @@
   -ms-border-radius:14rpx;
   margin-left: 50rpx;
   font-size: 22rpx;
-  /* display: inline-block;
 
-  width: 100rpx;
-  height: 28rpx;
-  text-align: center;
-  line-height: 28rpx;
-  color: #ff712b;
-  border: 1rpx solid #ff712b;
-  border-radius:14rpx;
-  -webkit-border-radius: 14rpx;
-  -moz-border-radius: 14rpx;
-  -o-border-radius: 14rpx;
-  -ms-border-radius:14rpx;
-  margin-left: 50rpx;
-  font-size: 22rpx; */
 }
 
 .m-box .m-list .m-list-right .m-time {
@@ -361,10 +342,7 @@
   padding: 60rpx 0;
   height: 222rpx;
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-   -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
+
   width: 50rpx;
   position: absolute;
   font-size: 22rpx;
@@ -449,4 +427,24 @@
   height: 30rpx;
   line-height:30rpx;
   margin-top: 32rpx;
+}
+.third_number{
+display:inline-block;
+position:absolute;
+top:99rpx;
+left:-38rpx;
+width:160rpx;
+height:34rpx;
+text-align:center;
+line-height:28rpx;
+color:#ff712b;
+border:1rpx solid #ff712b;
+border-radius:14rpx;
+-webkit-border-radius:14rpx;
+-moz-border-radius:14rpx;
+-o-border-radius:14rpx;
+-ms-border-radius:14rpx;
+margin-left:50rpx;
+font-size:23rpx;
+
 }

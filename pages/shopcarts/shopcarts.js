@@ -595,7 +595,7 @@ Page({
             for (let i = 0; i < carts.length; i++) {
               cartstrue.push(carts[i].selected);
             }
-
+          //使用indeof进行对比查找
             if (cartstrue.indexOf(false) !== -1) {
               _this.setData({
                 selectAllStatus: false,

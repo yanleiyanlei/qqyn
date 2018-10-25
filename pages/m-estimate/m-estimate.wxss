@@ -6,11 +6,6 @@
   background: #fff;
   margin-top: 10rpx;
   padding: 0 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
 }
 
 .order-info .good {
@@ -111,11 +106,7 @@
   resize: none;
   border-radius: 10rpx;
   padding: 10rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -ms-box-sizing: border-box;
+
   font-size: 22rpx;
 }
 /* 图片 */
@@ -140,9 +131,7 @@
   background: #fff;
   border: 1rpx dotted #ddd;
   border-radius: 4rpx;
-  /* overflow: hidden; */
   display: inline-block;
- /* background: red; */
 }
 .order-info .add-pic .pic .qxImg {
   position: absolute;

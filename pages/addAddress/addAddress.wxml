@@ -1,3 +1,4 @@
+<!-- 个人中心添加地址页面 -->
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="box border1">

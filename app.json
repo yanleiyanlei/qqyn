@@ -1,9 +1,29 @@
 {
   "pages": [
-    "pages/m-step/m-step",
     "pages/index/index",
-    "pages/m-step3/m-step3",
+    "pages/third-number/third-number",
+    "pages/pay199/pay199",
+    "pages/my/my",
+    "pages/m-commission-in-d/m-commission-in-d",
+    "pages/dfxm/dfxm",
+    "pages/members/members",
+    "pages/shopinfo/shopinfo",
+    "pages/m-withdraw-s/m-withdraw-s",
+    "pages/m-fans/m-fans",
+    "pages/m-commission-in-all/m-commission-in-all",
+    "pages/m-commission-rank/m-commission-rank",
+    "pages/m-commission-in/m-commission-in",
+    "pages/m-withdraw-d/m-withdraw-d",
+    "pages/m-withdraw/m-withdraw",
+    "pages/m-commission/m-commission",
+    "pages/m-integral/m-integral",
+    "pages/m-integral-d/m-integral-d",
+    "pages/m-step/m-step",
     "pages/m-step2/m-step2",
+    "pages/fxm/fxm",
+    "pages/goout/goout",
+    "pages/personalcenter/personalcenter",
+    "pages/m-step3/m-step3",
     "pages/hasbeencompleted/hasbeencompleted",
     "pages/m-fx/m-fx",
     "pages/logs/logs",
@@ -26,7 +46,6 @@
     "pages/chargeRecord/chargeRecord",
     "pages/gift-charge/gift-charge",
     "pages/link/link",
-    "pages/my/my",
     "pages/m-address/m-address",
     "pages/m-charge/m-charge",
     "pages/m-coupon/m-coupon",
@@ -73,10 +92,16 @@
         "selectedIconPath": "image/tabBar/3.png"
       },
       {
-        "pagePath": "pages/my/my",
-        "text": "会员",
+        "pagePath": "pages/members/members",
+        "text": "开小店",
         "iconPath": "image/tabBar/4-1.png",
         "selectedIconPath": "image/tabBar/4.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "会员",
+        "iconPath": "image/tabBar/5-1.png",
+        "selectedIconPath": "image/tabBar/5.png"
       }
     ]
   }

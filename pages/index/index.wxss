@@ -3,10 +3,6 @@
 
 /**index.wxss**/
 
-
-
-
-
 page {
   background: #f7f7f7;
 }
@@ -44,6 +40,10 @@ page {
 }
 
 /*swiper======  */
+
+.index-swiper {
+  position: relative;
+}
 
 .index-swiper swiper {
   height: 370rpx;
@@ -312,7 +312,7 @@ page {
 }
 
 .goodsType .goodsType-tit {
-  padding: 0 32rpx;
+  padding: 0 30rpx;
   margin-top: 10rpx;
   background: #fff;
 }
@@ -348,7 +348,99 @@ page {
 }
 
 .goodsType .goodsType-tit image {
-  width: 100%;
-  height: 200rpx;
+  width: 690rpx;
+  height: 340rpx;
   margin-bottom: 30rpx;
+}
+
+/* 其它活动 */
+
+.other-hd {
+  text-align: center;
+  margin-top: 10rpx;
+  padding: 40rpx 0;
+  background: #fff;
+}
+
+.other-hd image {
+  width: 690rpx;
+  height: 340rpx;
+}
+
+/* 我的小店 */
+
+#header {
+  height: 160rpx;
+  background: #fff;
+  padding: 30rpx 32rpx;
+  margin-bottom: 20rpx;
+}
+
+#header .userimg {
+  width: 160rpx;
+  height: 160rpx;
+  float: left;
+  margin-right: 20rpx;
+}
+
+#header .userimg image {
+  /* width: 160rpx;
+  height: 160rpx; */
+   max-width: 100%;
+  max-height: 100%; 
+  /* width: 100%;
+  height: 100%; */
+}
+
+#header .usermes .username {
+  font-size: 36rpx;
+  line-height: 40rpx;
+  color: #303030;
+  margin-bottom: 10rpx;
+}
+
+#header .usermes .ul {
+  height: 116rpx;
+  overflow: hidden;
+  border-radius: 0 0 10rpx 10rpx;
+  box-shadow: -5rpx 5rpx 10rpx #ccc;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+}
+
+#header .usermes .ul .li {
+  flex: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  float: left;
+  font-size: 26rpx;
+  color: #303030;
+  padding: 0 32rpx;
+  margin: 10rpx 0;
+  text-align: center;
+  border-right: 1rpx solid #bfbfbf;
+}
+
+#header .usermes .ul .li image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+#header .usermes .ul .li .span {
+  color: #ff712b;
+  font-size: 30rpx;
+}
+
+#header .usermes .ul .li .p {
+  margin-top: 20rpx;
+}
+
+#header .usermes .ul .li:last-child {
+  border: none;
 }

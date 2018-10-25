@@ -5,12 +5,28 @@ Page({
     iskong: false,
     orderlist: [],
     active: 0,
-    uid: ""
+    uid: "",
+    tt:"display:none"
   },
   onLoad: function (options) {
     var userInfo = wx.getStorageSync("userinfo");
     var uid = userInfo.uid;
     //var uid=62;
+    console.log(options.coupon)
+
+    if (options.coupon=='1'){
+      this.setData({
+        tt: "display:block",
+        tip:options.tip,
+        end:options.end
+      })
+      console.log(options.time)
+    } else if (options.coupon == 0){
+      this.setData({
+        tt: "display:none"
+      })
+    }
+   
     var that = this;
     var f = options.sta;
     this.setData({
@@ -59,8 +75,9 @@ Page({
   pay: function (e) {
     var val = e.currentTarget.dataset;
     var order_number = val.ordernum;
+     console.log(val)
     wx.redirectTo({
-      url: '/pages/mpay/mpay?oid=' + val.oid + '&money=' + val.money + '&sta=' + val.sta + '&wz=1&orderNumber=' + order_number,
+      url: '/pages/mpay/mpay?oid=' + val.oid + '&money=' + val.money + '&sta=' + val.sta + '&wz=1&orderNumber=' + order_number + '&coupon=' + val.coupon+"&end="+val.end+"&tip="+val.tip,
     })
     // wx.request({
     //   url: app.globalData.Murl+'/Applets/User/check_order',
@@ -531,7 +548,7 @@ Page({
       data: { member_id: uid },
       method: "post",
       success: function (res) {
-        //console.log(res)
+        console.log(res)
         that.setData({
           iskong: res.data.is_check,
           orderlist: res.data.order,
@@ -549,6 +566,11 @@ Page({
             wx.hideToast()
           }, 1000)
       }
+    })
+  },
+  close: function () {//关闭优惠券弹窗
+    this.setData({
+      tt: "display:none"
     })
   }
 })

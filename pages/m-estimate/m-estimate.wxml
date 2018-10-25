@@ -1,6 +1,6 @@
-<!--pages/m-estimate/m-estimate.wxml-->
+<!--个人中心商品评价页面-->
 <form bindsubmit="formSubmit">
-  <view class="order-info" style="margin-top: 0;">
+  <view class="order-info border-box" style="margin-top: 0;">
     <view class="good-info border1">
       <view class="good">
         <view class="left">
@@ -45,7 +45,7 @@
       <!-- <view class="tip">
      
     </view> -->
-      <textarea placeholder=" 输入商品评价" name="reviews_text"></textarea>
+      <textarea  class="border-box" placeholder=" 输入商品评价" name="reviews_text"></textarea>
     </view>
     <!-- 图片 -->
     <view class="add-pic clearfix" style="margin-top: 20rpx;padding-bottom: 20rpx;">

@@ -5,11 +5,6 @@
 .address {
   background: #fff;
   padding: 13rpx 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 }
 
 .address .ico {
@@ -47,11 +42,6 @@
 .order-info .order-Num {
   height: 80rpx;
   padding: 0 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
 }
 
 .order-info .order-Num .one {
@@ -69,11 +59,11 @@
 
 .order-info .good {
   padding: 30rpx 32rpx;
-  box-sizing: border-box;
+   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -o-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box; 
 }
 
 .order-info .good .left {
@@ -147,11 +137,6 @@
   background: #fff;
   font-size: 24rpx;
   padding: 13rpx 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 }
 
 .bill view {
@@ -171,11 +156,6 @@
 .delivery-info {
   background: #fff;
   padding: 13rpx 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 
 }
 

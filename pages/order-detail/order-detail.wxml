@@ -1,7 +1,7 @@
-<!--pages/order-detail/order-detail.wxml-->
+<!--个人中心，订单详情页面-->
 <!-- 地址 -->
 <view style="padding-bottom:110rpx">
-  <view class="address clearfix" style="margin-top: 10rpx;">
+  <view class="address clearfix border-box" style="margin-top: 10rpx;">
     <view class="ico">
       <text class="iconfont icon-unie609"></text>
     </view>
@@ -19,7 +19,7 @@
   </view>
   <!-- 商品 -->
   <view class="order-info">
-    <view class="order-Num border1">
+    <view class="order-Num border1 border-box">
       <text class="one">共{{order.quantity}}件</text>
 
       <text class="two" wx:if="{{order.order_type==1&&order.orderstatus==0}}">待付款</text>
@@ -94,7 +94,7 @@
 
   </view>
   <!-- 价格详情 -->
-  <view class="bill">
+  <view class="bill border-box">
     <view>
       <text>商品金额\t\t</text>
       <text class="right">￥{{order.order_money}}</text>
@@ -113,7 +113,7 @@
     </view>
   </view>
   <!-- 快递 -->
-  <view class="delivery-info" style="margin-top: 10rpx;">
+  <view class="delivery-info border-box" style="margin-top: 10rpx;">
     <view>
       <text>订单编号\t\t:\t\t</text>
       <text>{{order.order_number}}</text>

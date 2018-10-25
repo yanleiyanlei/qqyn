@@ -1,14 +1,9 @@
 <!--pages/qfhot/qfhot.wxml-->
 <!--banner  -->
 <!-- 权限 -->
-<view class="mask" style="{{show}}"></view>
-<view class="userInfo" style="{{show}}">
-  <view class="tt">"青青优农"要获得你的公开信息（昵称，头像等）</view>
-  <view class="op">
-    <view><button open-type='getUserInfo' bindgetuserinfo='UserInfo'>允许</button></view>
-    <view bindtap='close'>拒绝</view>
-  </view>
-</view>
+<import src="/lib/template/userInfo2.wxml" />
+<template is="user2" data="{{mshow}}">
+</template>
 
 <view class='banner'>
   <image src='{{banner[0].ad_img}}'></image>

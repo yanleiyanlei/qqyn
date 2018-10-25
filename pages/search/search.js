@@ -110,7 +110,7 @@ Page({
 
     if (that.data.searchValue == "") {
       wx.showToast({
-        title: '能容不能为空哦~',
+        title: '内容不能为空哦~',
         icon: 'none',
         duration: 2000
       })
@@ -153,7 +153,7 @@ Page({
           var status = res.data.status
           //console.log(res.data.status)
           //data
-          console.log(res.data)
+          console.log(res)
 
           if (status == 1) {
             wx.navigateTo({

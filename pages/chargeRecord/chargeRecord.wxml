@@ -1,4 +1,4 @@
-<!--pages/chargeRecharge/chargeRecord.wxml-->
+<!--个人中心，消费明细-->
 <view class="cash-back">
   <image class="back-ug" src="/image/my/backgout.png"></image>
   <view class="cash-money">

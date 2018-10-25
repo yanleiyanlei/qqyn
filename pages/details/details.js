@@ -4,16 +4,18 @@ var QQMapWX = require('../../lib/js/qqmap-wx-jssdk.min.js');
 var demo = new QQMapWX({
   key: '5UPBZ-OQLKD-AE44M-HBYKJ-32WLH-2JBKT'   //密钥
 })
-
+var user = require("../../lib/js/user.js")
 /*接口调用*/
 const app = getApp()
 
 Page({
   data: {
     show: "display:none",
+    monstiden:"display:none",
     datas: [],
     imgUrls: [],//详情页上的banner图
     detaIls: [],//商品的详情图
+    describe: [],//商品的文字详情 by yan.lei
     indicatorDots: true,
     autoplay: false,//banner图时候自动播放
     interval: 5000,//轮换的 速度
@@ -62,32 +64,7 @@ Page({
     this.setData({
       show: "display:none"
     })
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+      user.user(e);
   },
   //事件处理函数
   modalinput: function (e) {
@@ -102,6 +79,18 @@ Page({
     this.setData({
       modelHidden: !this.data.modelHidden
     })
+  },
+  //分享
+  openfx:function(){
+    this.setData({
+      monstiden: 'display:show',
+    }) 
+  },
+  //关闭分享
+  ofssfeq:function(){
+       this.setData({
+         monstiden:'display:none',
+       })
   },
   /*加入购物车*/
   addcars: function () {
@@ -209,70 +198,88 @@ Page({
   /*加入购物车*/
   joincarts: function (e) {
 
-       var code = app.globalData.code;
-        var that = this;
-        var uid = wx.getStorageSync("userinfo").uid;
-        console.log(uid)
-        if (!uid) {
-          that.setData({
-            show: "display:block",
-            modelHiddens: !this.data.modelHiddens
-          })
-        } else {
+    var code = app.globalData.code;
+    var that = this;
+    var uid = wx.getStorageSync("userinfo").uid;
+    //console.log(uid)
+    if (!uid) {
+      that.setData({
+        show: "display:block",
+        modelHiddens: !this.data.modelHiddens
+      })
+    } else {
 
-          var goods_id = e.currentTarget.dataset.list;
-          var uid = wx.getStorageSync("userinfo").uid;
-          var memner_id = uid;
-          var goods_id = goods_id;
-          var num = that.data.num;//获取data-num
-          var spec_key = e.currentTarget.dataset.key;
-          var obj = { member_id: memner_id, goods_id: goods_id, goods_num: num, spec_key: spec_key }
-          // console.log(spec_key);
-          wx.request({
-            url: app.globalData.Murl+'/Applets/Cart/ajaxAddcart/',
-            data: obj,
-            method: "post",
-            success: function (res) {
-              const dastas = res.data;
-              const datamsg = dastas.msg;
-              // console.log(dastas);
-              if (dastas.status == 1) {
-                wx.showToast({
-                  title: '添加成功！',
-                  icon: 'success',
-                  duration: 2000,
-                })
-                that.setData({
-                  modelHiddens: !that.data.modelHiddens,
-                  datamsg: datamsg
-                })
-              }
-              if (dastas.status == -1) {
-                wx.showToast({
-                  title: '请选择规格！',
-                  icon: 'loading',
-                  duration: 2000
-                })
-              }
-              if (dastas.status == -2) {
-                wx.showToast({
-                  title: '添加失败！！',
-                  icon: 'loading',
-                  duration: 2000
-                })
-              }
-              if (dastas.status == -5) {
-                wx.showToast({
-                  title: datamsg,
-                  icon: 'none',
-                  duration: 2000
-                })
+      var goods_id = e.currentTarget.dataset.list;
+      var uid = wx.getStorageSync("userinfo").uid;
+      var memner_id = uid;
+      var goods_id = goods_id;
+      var num = that.data.num;//获取data-num
+      var spec_key = e.currentTarget.dataset.key;
+      var obj = { member_id: memner_id, goods_id: goods_id, goods_num: num, spec_key: spec_key }
+      // console.log(spec_key);
+      wx.request({
+        url: app.globalData.Murl + '/Applets/Cart/ajaxAddcart/',
+        data: obj,
+        method: "post",
+        success: function (res) {
+          const dastas = res.data;
+          const datamsg = dastas.msg;
+          // console.log(dastas);
+          if (dastas.status == false) {//哪个傻缺写的，连个false 的情况都加
+            wx.showToast({
+              title: dastas.data,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+          if (dastas.status == 1) {
+            wx.showToast({
+              title: '添加成功！',
+              icon: 'success',
+              duration: 2000,
+            })
+            that.setData({
+              modelHiddens: !that.data.modelHiddens,
+              datamsg: datamsg
+            })
+          }
+          if (dastas.status == -1) {
+            wx.showToast({
+              title: '请选择规格！',
+              icon: 'loading',
+              duration: 2000
+            })
+          }
+          if (dastas.status == -2) {
+            wx.showToast({
+              title: '添加失败！！',
+              icon: 'loading',
+              duration: 2000
+            })
+          }
+          if (dastas.status == -5) {
+            wx.showToast({
+              title: datamsg,
+              icon: 'none',
+              duration: 2000
+            })
 
-              }
-            }
-          })
+          }
+          if (dastas.status == 10) {
+            //by yan.lei 一键代发执行跳转
+            wx.navigateTo({
+              url: '../theorder/theorder?goods_id=' + goods_id + '&num=' + num + '&spec_key=' + spec_key + '&page=' + 1,
+              success: function (res) { console.log(res) },
+              fail: function (res) { console.log(res) },
+              complete: function (res) { console.log(res) },
+            })
+
+          }
 
         }
+      })
+
+    }
 
   },
   /*跳转到首页*/
@@ -306,9 +313,32 @@ Page({
       withShareTicket: true
     })
     /*调用接口*/
-    var _that = this;
+    var _that = this; 
+    //console.log(options.pid);
     var userinfo = wx.getStorageSync("userinfo");
     var uid = userinfo.uid;
+     var scene = decodeURIComponent(options.scene)
+     console.log(scene);
+    if (scene=='undefined'){
+      var goodsid = options.goodsid;
+      var pid = options.pid;
+      console.log(pid);
+    
+   }else{
+      var goodsid = scene.split("&")[0];
+      var pid = scene.split("&")[1];
+     }
+    //创建缓存
+    _that.setData({
+      goodsid: goodsid,
+      member_id:pid,
+    })
+    if (pid) {
+      wx.setStorageSync("pid", pid);
+    }
+
+    var pids = wx.getStorageSync("pid");
+    console.log(pids);
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
@@ -356,38 +386,41 @@ Page({
 
     const that = this;
 
-    const _url = app.globalData.Murl+"/Applets/Goods/goodsdetails";
+    const _url = app.globalData.Murl + "/Applets/Goods/goodsdetails";
     wx.request({
       url: _url,
       data: {
-        id: options.goodsid,
+        id: goodsid,
         member_id: uid,
         seller_id: 1,
       },
       success: function (res) {
 
         const datalist = res.data;
-       console.log(datalist);
+        console.log(datalist);
         const datas = datalist.goodsreviews;
         /*将评论的 时间 循环添加到数据中*/
         for (var i = 0; i < datas.length; i++) {
 
           datas[i].timesto = toDate(datas[i].reviews_addtime)
-        }
+        } 
         /*获取当前时间 添加到 数据 中*/
         datalist.timestos = getNowTime(datalist.reviews_addtime);
         /* console.log(datalist.goodsreviews);*/
+        var shop_prices = datalist.goodsSpecInfo[0].shop_price;
         that.setData({
           datas: datalist,
           nowTime: datalist.timestos,//当前时间
           goodsAttrInfo: datalist.goodsAttrInfo,
           shopName: datalist.goodsdetails,
           goodsreviews: datalist.goodsreviews,
+          shop_prices: Number(shop_prices * 0.1).toFixed(2),
           imgUrls: datalist.goodsdetails.goods_img,
           priCes: datalist.goodsSpecInfo,
           homoNet: datalist.goodsSpec,
           goodImg: datalist.goodsImg2,
           detaIls: datalist.goodsdetails.details_img,
+          describe: datalist.goodsdetails.goods_describe,
           goodsReviews: datas,
           reviewsNum: datalist.reviewsnum,
         })
@@ -415,63 +448,83 @@ Page({
   btensjop(e) {
     var _this = this;
     var uid = wx.getStorageSync("userinfo").uid;
-    console.log(uid)
+    // cxvasdcconsole.log(uid)
     if (!uid) {
       _this.setData({
         show: "display:block",
         modelHiddenss: !this.data.modelHiddenss
       })
-    } else{
-          var kc = _this.data.nums;//获取data-num
-          var goods_id = e.currentTarget.dataset.list;
-          var num = _this.data.num;
-          var spec_key = e.currentTarget.dataset.key;//获取data-num
-          var uid = wx.getStorageSync("userinfo").uid;
-          if (spec_key == '') {
-            wx.showToast({
-              title: '请选择规格',
-              icon: 'loading',
-              duration: 2000
-            })
-          } else {
-            var _urlshop = app.globalData.Murl+"/Applets/Cart/goBuy";
-            wx.request({
-              url: _urlshop,
-              data: {
-                member_id: uid,
-                seller_id: 1,
-                goods_id: goods_id,
-                spec_key: spec_key,
-                goods_num: num,
-              },
-              method: "post",
-              success: function (res) {
-                const dastas = res.data;
-                // console.log(dastas);
-                if (dastas.status == false) {
-                  wx.showToast({
-                    title: dastas.data,
-                    icon: 'none',
-                    duration: 2000
-                  })
-                } else {
-                  _this.setData({
-                    modelHiddenss: true
-                  })
-                  wx.navigateTo({
-                    url: '../theorder/theorder?goods_id=' + goods_id + '&num=' + num + '&spec_key=' + spec_key + '&page=' + 1,
-                    success: function (res) { console.log(res) },
-                    fail: function (res) { console.log(res) },
-                    complete: function (res) { console.log(res) },
-                  })
+    } else {
+      var kc = _this.data.nums;//获取data-num
+      var goods_id = e.currentTarget.dataset.list;
+      var num = _this.data.num;
+      var spec_key = e.currentTarget.dataset.key;//获取data-num
+      var uid = wx.getStorageSync("userinfo").uid;
+      if (spec_key == '') {
+        wx.showToast({
+          title: '请选择规格',
+          icon: 'loading',
+          duration: 2000
+        })
+      } else {
+        var _urlshop = app.globalData.Murl + "/Applets/Cart/goBuy";
+        wx.request({
+          url: _urlshop,
+          data: {
+            member_id: uid,
+            seller_id: 1,
+            goods_id: goods_id,
+            spec_key: spec_key,
+            goods_num: num,
+          },
+          method: "post",
+          success: function (res) {
+            const dastas = res.data;
+            // console.log(dastas);
+            if (dastas.status == false) {
+              wx.showToast({
+                title: dastas.data,
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              _this.setData({
+                modelHiddenss: true
+              })
+              wx.navigateTo({
+                url: '../theorder/theorder?goods_id=' + goods_id + '&num=' + num + '&spec_key=' + spec_key + '&page=' + 1,
+                success: function (res) { console.log(res) },
+                fail: function (res) { console.log(res) },
+                complete: function (res) { console.log(res) },
+              })
 
-                }
-              }
-
-            })
+            }
           }
 
-        }
+        })
+      }
+    }
+  },
+  //分享朋友圈
+  sharefrend() {
+    var goods_id = this.data.goodsid;
+    console.log(goods_id);
+    var userinfo = wx.getStorageSync("userinfo");
+    var uid = userinfo.uid;
+    var that = this;
+    if (!uid) {
+      that.setData({
+        show: "display:block",
+        monstiden: 'display:none'
+      })
+    } else {
+      wx.navigateTo({
+        url: '../dfxm/dfxm?goods_id=' + goods_id,
+        success: function (res) { console.log(res) },
+        fail: function (res) { console.log(res) },
+        complete: function (res) { console.log(res) },
+      })
+    }
   },
   onShow: function (options) {
     // console.log("dddd")
@@ -491,45 +544,22 @@ Page({
   },
   onShareAppMessage: function () {
     var that = this;
+    var member_id = that.data.member_id;
+    var userinfo = wx.getStorageSync("userinfo");
+    var uid = userinfo.uid;
+    var shopName = that.data.shopName;
+    var goods_name = shopName.goods_name;
+    var shop_price = shopName.shop_price;
     // console.log(that.data.id)
     return {
-      title: '青青优农',
-      path: '/pages/details/details?goodsid=' + that.data.goodImg.goods_id,
+      title: "【快来抢购】" + goods_name + "~微信专享价￥:" + shop_price,
+      path: '/pages/details/details?goodsid=' + that.data.goodImg.goods_id+'&pid='+uid,
       imageUrl: '',
       success: function (res) {
-        //console.log(111)
+        console.log(111)
         //console.log(res)
-        var shareTickets = res.shareTickets[0];
-        wx.login({
-          success: function (res) {
-            //console.log(shareTickets)
-            var code = res.code;
-            wx.getShareInfo({
-              shareTicket: shareTickets,
-              success: function (res) {
-                var encryptedData = res.encryptedData;
-                var iv = res.iv;
-                // console.log(res)
-                // console.log(code)
-                wx.request({
-                  url: app.globalData.Murl+'/Applets/Login/jiemi',
-                  data: { encryptedData: encryptedData, iv: iv, code: code },
-                  method: "post",
-                  success: function (res) {
-                    console.log(res)
-                  }
-                })
-              },
-              fail: function (res) { console.log(res) },
-              complete: function (res) { }
-            })
-
-
-
-          }
-        })
-        // console.log
-
+    
+        // console.lo
       },
       fail: function (res) {
         // 分享失败

@@ -1,6 +1,6 @@
-var dl = require("../../lib/js/mmm.js");
-var open = require("../../lib/js/open.js");
+
 var app = getApp();
+var user = require("../../lib/js/user.js")
 Page({
 
   /**
@@ -8,10 +8,10 @@ Page({
    */
   data: {
     uid:'',
-    show: "display:none",
+    mshow: "display:none",
     msg:'',
     tt:"display:none",
-    more:"display:block",
+    more:"display:none",
     pop_msg:[],
     end_time:''
   },
@@ -31,7 +31,7 @@ Page({
 
         that.setData({
           uid: wx.getStorageSync("userinfo").uid,
-          show: "display:none"
+          mshow: "display:none"
         })
         console.log(that.data.uid)
         wx.request({
@@ -68,39 +68,13 @@ Page({
 
       } else {
         that.setData({
-          show: "display:block"
+          mshow: "display:block"
         })
       }
     }, 1000)
   },
   UserInfo: function (e) {
-    //console.log(e.detail);
-    wx.login({
-      success: function (res) {
-        var code = res.code;
-        var utoken = wx.getStorageSync("utoken");
-        wx.request({
-          //用户登陆URL地址，请根据自已项目修改
-          url: app.globalData.Murl+'/Applets/Login/userAuthSlogin',
-          method: "POST",
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv
-          },
-          fail: function (res) {
-          },
-          success: function (res) {
-            var utoken = res.data.utoken;
-            //设置用户缓存
-            wx.setStorageSync("utoken", utoken);
-            wx.setStorageSync("userinfo", res.data.userinfo);
-            //console.log("允许");
-          }
-        })
-      }
-    })
+   user.user(e)
   },
   close:function(){
     this.setData({

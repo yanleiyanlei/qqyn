@@ -4,11 +4,6 @@
 .nav {
   height: 88rpx;
   background: #fff;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 }
 .nav .nav-box{
   width: 100%;
@@ -24,10 +19,6 @@
   text-align: center;
   color: #303030;
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 }
 .nav .nav-box .active {
   color: #ff712b;
@@ -54,11 +45,6 @@ kong {
   background: #fff;
   margin-top: 10rpx;
   padding: 0 32rpx;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
 }
 .order-info .order-Num {
   height: 80rpx;
@@ -189,4 +175,102 @@ kong {
 .order-info .operation .cant {
   border: 1rpx solid #c9c9c9;
   color: #666;
+}
+
+/* 优惠券 */
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  opacity: 0.5;
+  z-index: 999;
+  /* display: none; */
+}
+.success{
+  width: 690rpx;
+  height: 900rpx;
+  position: fixed;
+  top:50%;
+  left: 50%;
+  margin-top: -450rpx;
+  margin-left: -345rpx;
+  z-index: 1000;
+  /* display: none; */
+}
+.success .close{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top:-50rpx;
+  right: 40rpx;
+}
+.success .bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.success .success-con{
+  position: absolute;
+  top: 130rpx;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 1001;
+}
+.success .success-con .success-img{
+  width: 186rpx;
+  height: 186rpx;
+  margin-bottom: 5rpx;
+}
+.success .success-con .one{
+  font-size: 22rpx;
+  color: #913407;
+  line-height: 36rpx;
+}
+.success .success-con .two{
+  font-size: 18rpx;
+  color: #666;
+}
+.success  .op-box{
+  width: 100%;
+  position: absolute;
+  bottom: 160rpx;
+  left: 0;
+  z-index: 1002;
+  text-align: center;
+}
+.success  .use{
+  margin: 0 auto;
+  margin-top: 50rpx;
+  width: 504rpx;
+  height: 86rpx;
+  line-height: 86rpx;
+  text-align: center;
+  background: #fff;
+  color: #ff712b;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+  -o-border-radius:50rpx; 
+  -ms-border-radius:50rpx; 
+  -moz-border-radius:50rpx; 
+  -webkit-border-radius:50rpx; 
+}
+.success  .again{
+  margin: 0 auto;
+  margin-top: 20rpx;
+  width: 504rpx;
+  height: 86rpx;
+  line-height: 86rpx;
+  text-align: center;
+  border: 1rpx solid #fff;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+  -o-border-radius:50rpx; 
+  -ms-border-radius:50rpx; 
+  -moz-border-radius:50rpx; 
+  -webkit-border-radius:50rpx; 
 }

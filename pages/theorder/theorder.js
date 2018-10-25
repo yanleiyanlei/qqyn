@@ -11,15 +11,58 @@ Page({
     couponprice: [],
     monprice: [],
     conprice: [],
-    item:" ",
-    selAddress:" ",
+    item: " ",
+    selAddress: " ",
     package_mail: [],
-    userName: ''
+    userName: '',
+    weCharstatus: false,   // 全选状态，默认全选
+    yuestutea:false,
   },
   userNameInput: function (e) {
     this.setData({
       userName: e.detail.value
     })
+  },
+ //生成 订单支付
+  selectAll(e) {
+    var wtimes = e.currentTarget.dataset.keys;
+    console.log(wtimes);
+    let weCharstatus = this.data.weCharstatus;
+    let yuestutea = this.data.yuestutea;
+    weCharstatus = !weCharstatus;
+    console.log(weCharstatus);
+    console.log(yuestutea);
+    if (weCharstatus == true) {
+      this.setData({
+        weCharstatus: weCharstatus,
+        yuestutea: false,
+        wtimes: wtimes,
+      });
+    } else {
+      this.setData({
+        weCharstatus: weCharstatus,
+        wtimes:undefined
+      });
+    }
+  },
+
+  selectAlls(e) {
+    var wtimes = e.currentTarget.dataset.keys;
+    let yuestutea = this.data.yuestutea;
+    yuestutea = !yuestutea;
+    console.log(yuestutea);
+    if (yuestutea == true) {
+      this.setData({
+        yuestutea: yuestutea,
+        weCharstatus: false,
+        wtimes: wtimes,
+      });
+    } else {
+      this.setData({
+        yuestutea: yuestutea,
+        wtimes: undefined
+      });
+    }
   },
   /*去结算按钮 生成订单*/
   subdingr(e) {
@@ -36,10 +79,14 @@ Page({
     var qu = e.currentTarget.dataset.qu;
     var dizhi = e.currentTarget.dataset.dizhi;
     var cont = e.currentTarget.dataset.cont;
-    var freight=e.currentTarget.dataset.freight;
-    var address = sheng + '-' + shi + '-' + qu + dizhi;
-    console.log(this.data.package_mail);
-
+    var freight = e.currentTarget.dataset.freight;
+    var conp = this.data.can_goods_coupon;
+    var ids= e.currentTarget.dataset.id;
+    var address = sheng + ' ' + shi + ' ' + qu + dizhi;
+    var weekday = this.data.quantity.select_weekday1;
+    var wtimes = this.data.wtimes;
+  //  console.log(weekday);
+    console.log(ids);
     if (price >= this.data.package_mail) {
       var freight = 0;
     } else {
@@ -67,12 +114,20 @@ Page({
       setTimeout(function () {
         wx.hideLoading()
       }, 1000)
+    } else if (conp == 0) {
+      wx.showToast({
+        title: '使用商品券收货地址必须为北京市范围内',
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 1000)
     } else {
       var uid = wx.getStorageSync("userinfo").uid;
       var _this = this;
-      wx.request({
-        url: app.globalData.Murl+'/Applets/Cart/Addordershow',
-        data: {
+      if (weekday == undefined) {
+        var obj ={
           member_id: uid,//用户id
           seller_id: 1,
           dis_id: dis_id,
@@ -83,26 +138,56 @@ Page({
           actualpayment: actualpayment,
           consigneename: name,
           consigneephone: photo,
-          consigneeaddress: dizhi,
-          order_content: cont
-
-        },
+          consigneeaddress: address,
+          order_content: cont,
+          consigneeaddressid: ids
+        }
+      }else{
+        var obj = {
+          member_id: uid,//用户id
+          seller_id: 1,
+          dis_id: dis_id,
+          coupon: coupon,
+          goods_money: price,
+          quantity: quantitys,
+          freight: freight,
+          actualpayment: actualpayment,
+          consigneename: name,
+          consigneephone: photo,
+          consigneeaddress: address,
+          order_content: cont,
+          consigneeaddressid: ids,
+          post_time:wtimes,
+        }
+      }
+      wx.request({
+        url: app.globalData.Murl + '/Applets/Cart/Addordershow',
+        data: obj,
         method: 'POST',
         header: { 'Content-Type': 'application/json' },
         success: function (res) {
           const datas = res.data;
-          _this.setData({
-            actualpayment: actualpayment,
-            orderid: datas.orderid,//订单id
-            order_number: datas.order_number
-          })
-          console.log(_this.data.actualpayment);
-          wx.redirectTo({
-            url: '../pay/pay?order_number=' + _this.data.order_number,
-            success: function (res) { console.log(res) },
-            fail: function (res) { console.log(res) },
-            complete: function (res) { console.log(res) },
-          })
+          console.log(datas);
+          if (datas.status==false){
+            wx.showToast({
+              title: datas.data,
+              icon: 'none',
+              duration: 2000
+            })
+          }else{
+            _this.setData({
+              actualpayment: actualpayment,
+              orderid: datas.orderid,//订单id
+              order_number: datas.order_number
+            })
+            console.log(_this.data.actualpayment);
+            wx.redirectTo({
+              url: '../pay/pay?order_number=' + _this.data.order_number + '&is_goods_coupon=' + _this.data.is_goods_coupon + '&reduce_moeny=' + _this.data.reduce_moeny + '&satisfy_money=' + _this.data.satisfy_money + '&now_time=' + _this.data.now_time,
+              success: function (res) { console.log(res) },
+              fail: function (res) { console.log(res) },
+              complete: function (res) { console.log(res) },
+            })
+          }
         }
       })
     }
@@ -154,35 +239,35 @@ Page({
       goods_id: options.goods_id,
       spec_key: options.spec_key,
       num: options.num,
-      dis_id:options.dis_id,
-      Cart_address_id:options.id
+      dis_id: options.dis_id,
+      Cart_address_id: options.id
     })
   },
-  onShow:function(){
+  onShow: function () {
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];   //当前页面
     var pagess = getCurrentPages();
     var currPages = pagess[pages.length - 1];   //当前页面
     /*收货地址*/
-    var item=currPage.data.items;
+    var item = currPage.data.items;
     console.log(currPages);
-    var _this=this;
-    var page=_this.data.page;
-      var goods_id=_this.data.goods_id;
-      var spec_key=_this.data.spec_key;
-      var num =_this.data.num;
-      var id=_this.data.Cart_address_id;
-      var dis_id=_this.data.dis_id;
-     function getNowTime() {
-        var now = new Date();
-        var h = now.getHours();
-        var formatDate = h;
-        return formatDate;
-      }
+    var _this = this;
+    var page = _this.data.page;
+    var goods_id = _this.data.goods_id;
+    var spec_key = _this.data.spec_key;
+    var num = _this.data.num;
+    var id = _this.data.Cart_address_id;
+    var dis_id = _this.data.dis_id;
+    function getNowTime() {
+      var now = new Date();
+      var h = now.getHours();
+      var formatDate = h;
+      return formatDate;
+    }
     var uid = wx.getStorageSync("userinfo").uid;
     if (page == 2) {
       /*购物车结算的接口*/
-      var urlshop = app.globalData.Murl+"/Applets/Cart/CartBuy";
+      var urlshop = app.globalData.Murl + "/Applets/Cart/CartBuy";
       wx.request({
         url: urlshop,
         data: { member_id: uid, seller_id: 1 },
@@ -190,35 +275,52 @@ Page({
         success: function (res) {
           const dastas = res.data;
           console.log(dastas);
-         if (dastas.status == true) {
+          if (dastas.status == true) {
             wx.request({
-              url: app.globalData.Murl+'/Applets/Cart/order1',
+              url: app.globalData.Murl + '/Applets/Cart/order1',
               data: {
                 member_id: uid,
                 seller_id: 1,
-                dis_id:dis_id,
-                Cart_address_id:item
+                dis_id: dis_id,
+                Cart_address_id: item
               },
               method: "post",
               success: function (res) {
                 console.log(res.data);
                 var datalist = res.data;
                 var godsorder = datalist.order;
-                var commpany =datalist.commpany;
+                console.log(datalist.select_weekday1);
+                var commpany = datalist.commpany;
+                var can_goods_coupon = datalist.can_goods_coupon;
+                var is_goods_coupon = datalist.is_goods_coupon;
                 datalist.timestos = getNowTime(datalist.reviews_addtime);
-               if(datalist.address==null){
-                   _this.setData({
+                if (is_goods_coupon == 1) {
+                  var reduce_moeny = datalist.reward_coupon.reduce_moeny;
+                  var satisfy_money = datalist.reward_coupon.satisfy_money;
+                  var now_time = datalist.reward_coupon.now_time;
+                  _this.setData({
+                    reduce_moeny: reduce_moeny,
+                    satisfy_money: satisfy_money,
+                    now_time: now_time,
+                  })
+                }
+                if (datalist.address == null) {
+                  _this.setData({
                     goodsorder: godsorder,
                     quantity: datalist,
+                    is_goods_coupon: is_goods_coupon,
+                    can_goods_coupon: can_goods_coupon,
                     address: datalist.address,
                     money: Number(datalist.money),
                     allsprice: Number(datalist.money) + Number(commpany.upto_amount),
                     package_mail: Number(datalist.commpany.package_mail)
                   })
-                }else{
+                } else {
                   _this.setData({
                     goodsorder: godsorder,
                     quantity: datalist,
+                    is_goods_coupon: is_goods_coupon,
+                    can_goods_coupon: can_goods_coupon,
                     address: datalist.address,
                     loc: datalist.address.sheng,
                     money: Number(datalist.money),
@@ -229,7 +331,7 @@ Page({
                 }
                 var allsprices = _this.data.allsprice;
                 console.log(allsprices);
-                var moneys   = _this.data.money;
+                var moneys = _this.data.money;
                 if (datalist.coupon == null) {
 
                 } else {
@@ -242,8 +344,8 @@ Page({
                 }
               }
             })
-          }else if(dastas.status==false){
-            wx.redirectTo ({
+          } else if (dastas.status == false) {
+            wx.redirectTo({
               url: '../m-order/m-order?sta=0',
             })
           }
@@ -251,7 +353,7 @@ Page({
       })
     } else if (page == 1) {
       /*立即购买的接口*/
-      var _urlshop = app.globalData.Murl+"/Applets/Cart/goBuy";
+      var _urlshop = app.globalData.Murl + "/Applets/Cart/goBuy";
       wx.request({
         url: _urlshop,
         data: {
@@ -266,34 +368,51 @@ Page({
           const dastas = res.data;
           console.log(dastas);
           if (dastas.status == true) {
-      
             wx.request({
-              url: app.globalData.Murl+'/Applets/Cart/order1',
+              url: app.globalData.Murl + '/Applets/Cart/order1',
               data: {
                 member_id: uid,
                 seller_id: 1,
-                dis_id:dis_id,
-                Cart_address_id:item
+                dis_id: dis_id,
+                Cart_address_id: item
               },
               method: "post",
               success: function (res) {
                 var datalist = res.data;
+                console.log(datalist);
                 var godsorder = datalist.order;
-                var commpany =datalist.commpany;
+                var can_goods_coupon = datalist.can_goods_coupon;
+                var is_goods_coupon = datalist.is_goods_coupon;
+                console.log(is_goods_coupon);
+                var commpany = datalist.commpany;
                 datalist.timestos = getNowTime(datalist.reviews_addtime);
-                if(datalist.address==null){
-                   _this.setData({
+                if (is_goods_coupon == 1) {
+                  var reduce_moeny = datalist.reward_coupon.reduce_moeny;
+                  var satisfy_money = datalist.reward_coupon.satisfy_money;
+                  var now_time = datalist.reward_coupon.now_time;
+                  _this.setData({
+                    reduce_moeny: reduce_moeny,
+                    satisfy_money: satisfy_money,
+                    now_time: now_time,
+                  })
+                }
+                if (datalist.address == null) {
+                  _this.setData({
                     goodsorder: godsorder,
                     quantity: datalist,
+                    is_goods_coupon: is_goods_coupon,
+                    can_goods_coupon: can_goods_coupon,
                     address: datalist.address,
                     money: Number(datalist.money),
                     allsprice: Number(datalist.money) + Number(commpany.upto_amount),
                     package_mail: Number(datalist.commpany.package_mail)
                   })
-                }else{
+                } else {
                   _this.setData({
                     goodsorder: godsorder,
                     quantity: datalist,
+                    is_goods_coupon: is_goods_coupon,
+                    can_goods_coupon: can_goods_coupon,
                     address: datalist.address,
                     loc: datalist.address.sheng,
                     money: Number(datalist.money),
@@ -304,15 +423,15 @@ Page({
                 }
                 var allsprices = _this.data.allsprice;
                 console.log(allsprices);
-                 var moneys   = _this.data.money;
+                var moneys = _this.data.money;
                 if (datalist.coupon == null) {
 
                 } else {
                   var prices = datalist.coupon.coupon_money;
 
                   _this.setData({
-                   conprice: Number(allsprices - prices).toFixed(2),
-                   compoins: Number(moneys - prices).toFixed(2),
+                    conprice: Number(allsprices - prices).toFixed(2),
+                    compoins: Number(moneys - prices).toFixed(2),
                   })
                 }
               }

@@ -1,4 +1,4 @@
-<!--pages/gift-charge/gift-charge.wxml-->
+<!--礼品卡充值页面-->
 <form bindsubmit='formSubmit'>
 
 

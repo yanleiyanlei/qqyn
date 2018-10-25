@@ -1,4 +1,5 @@
 <!-- 支付页面 -->
+<!--商品券弹窗-->
 <view class="paystime">
 	<view class="ddmoney">订单金额：
      <text>￥{{money}}</text>
@@ -8,7 +9,7 @@
 	</view>
 </view>
 <view class="paytype">
-	<view class="paywechat">
+	<view class="paywechat {{money == 0 ? 'areaselected' : ''}}">
 		<text class="iconfont icon-weixin"></text>
 		微信支付
 		<view class="but">
@@ -18,6 +19,7 @@
 			</view>				
 		</view>
 	</view>
+
 	<view class="payyue">
 		<text class="iconfont icon-iconfontzhanghuzichan"></text>
 		余额支付
@@ -36,7 +38,18 @@
 		 	去支付
 		 </view>
 </view>
-
+<view class="couponents" style="{{shows}}">
+  <view class="imgcoupoin">
+     <image src='../../image/hd/offs.png' class="offs" bindtap='offss'></image>
+      <view class="titles_c">
+        <text class="one_tit">{{satisfy_money}}元减{{reduce_moeny}}优惠券</text>
+        <text class="two_tit">有效期至：{{now_time}}</text>
+      </view>
+      <view class="li_num" bindtap="goshops">
+        立即使用
+      </view>
+  </view>
+</view>
 <view wx:if="{{wallets_password_flag}}" class="wallets-password">
 		<view class="input-content-wrap">
 		<view class="top">

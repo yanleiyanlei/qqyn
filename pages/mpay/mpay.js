@@ -61,7 +61,7 @@ Page({
       console.log(that.data.orderid);
       console.log(uid);
       wx.request({
-        url: app.globalData.Murl+'/Applets/Cart/YuE_pay',
+        url: app.globalData.Murl + '/Applets/Cart/YuE_pay',
         data: {
           member_id: uid,
           inp_v: that.data.wallets_password,
@@ -86,8 +86,9 @@ Page({
             })
             setTimeout(function () {
               if (that.data.wz == 1) {
+
                 wx.redirectTo({
-                  url: '/pages/m-order/m-order?sta=' + that.data.sta,
+                  url: '/pages/m-order/m-order?sta=' + that.data.sta + "&coupon=" + that.data.coupon + "&end=" + that.data.end + "&tip=" + that.data.tip,
                 })
               } else if (that.data.wz == 0) {
                 wx.redirectTo({
@@ -145,7 +146,7 @@ Page({
     var mdd = that.data.mdd;
     if (mdd) {
       wx.request({
-        url: app.globalData.Murl+'/Applets/User/check_order',
+        url: app.globalData.Murl + '/Applets/User/check_order',
         data: { order_number: that.data.order_number },
         method: "post",
         success: function (res) {
@@ -155,7 +156,7 @@ Page({
               // console.log(openid)
               //订单支付
               wx.request({
-                url: app.globalData.Murl+'/Applets/Api/index',
+                url: app.globalData.Murl + '/Applets/Api/index',
                 data: {
                   openid: openid,
                   orderid: orderid
@@ -172,8 +173,9 @@ Page({
                     'paySign': res.data['paySign'],
                     'success': function (res) {
                       //console.log("支付成功");
+                      console.log(res)
                       wx.redirectTo({
-                        url: '/pages/m-order/m-order?sta=' + that.data.sta,
+                        url: '/pages/m-order/m-order?sta=' + that.data.sta+"&coupon="+that.data.coupon+"&end="+that.data.end+"&tip="+that.data.tip,
                       })
 
 
@@ -214,7 +216,7 @@ Page({
     } else {
       var openid = wx.getStorageSync("userinfo").openId;
       wx.request({
-        url: app.globalData.Murl+'/Applets/Api/wx_recharge',
+        url: app.globalData.Murl + '/Applets/Api/wx_recharge',
         data: {
           openid: openid,
           orderid: orderid
@@ -263,7 +265,7 @@ Page({
   },
   onLoad: function (options) {
     var uid = wx.getStorageSync("userinfo").uid;
-    console.log(options.orderNumber)
+     console.log(options)
     this.setData({
       order_number: options.orderNumber
     })
@@ -279,7 +281,7 @@ Page({
         weCharstatus: true
       })
       wx.request({
-        url: app.globalData.Murl+'/Applets/User/pay1',
+        url: app.globalData.Murl + '/Applets/User/pay1',
         data: { order_number: options.orderNum },
         method: "post",
         success: function (res) {
@@ -312,8 +314,12 @@ Page({
         actualpayment: options.money,
         sta: options.sta,
         mdd: true,
-        wz: options.wz
+        wz: options.wz,
+        coupon:options.coupon,
+        end:options.end,
+        tip:options.tip
       })
+      // console.log(options.coupon)
     }
 
 

@@ -66,6 +66,25 @@ swiper {
   box-shadow: 0rpx 5rpx 5rpx 5rpx #ccc;
   padding: 36rpx 28rpx 0 28rpx;
   box-sizing: border-box;
+  position: relative;
+}
+
+.addcoupn {
+  position: absolute;
+  right: 32rpx;
+  width: auto;
+  top: 50rpx;
+  text-align: center;
+}
+
+.addimg {
+  width: 39rpx;
+  height: 50rpx;
+}
+
+.moneys {
+  font-size: 24rpx;
+  color: #ff7b33;
 }
 
 .goodsname {
@@ -426,15 +445,15 @@ swiper {
 }
 
 .bottomdetaile .icon-weibiaoti11 {
-  display: inline-block;
+  display: block;
   font-size: 40rpx;
-  margin-top: 12rpx;
+  margin-top: 14rpx;
   color: #02cb6a;
   border-right: none;
 }
 
 .icon-gouwuche {
-  display: inline-block;
+  display: block;
   margin-top: 10rpx;
   font-size: 45rpx;
 }
@@ -488,6 +507,17 @@ swiper {
 }
 
 .addcatsws {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #c0c0c0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 99999999;
+}
+
+.fxtc {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -659,4 +689,126 @@ swiper {
   color: #fff;
   font-size: 26rpx;
   margin-left: 10rpx;
+}
+
+.fxconten {
+  width: 100%;
+  height: 510rpx;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  padding-top: 40rpx;
+  box-sizing: border-box;
+}
+.detailimg{
+  width: 100%;
+  height: 184rpx;
+  position: absolute;
+  bottom: 510rpx;
+}
+.contentsa{
+  width: 100%;
+  height: 297rpx;
+}
+.contleft{
+  width: 85rpx;
+  height: 100%;
+  margin-left: 64rpx;
+  float: left;
+  text-align: center;
+}
+.contleft text{
+  font-size: 26rpx;
+  color: #9a9a9a;
+  display: block;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+.concent{
+   width: 85rpx;
+  height: 100%;
+  float: left;
+  text-align: center;
+}
+.xian{
+  width: 17rpx;
+  height: 224rpx;
+}
+.friendq{
+  padding-top: 15rpx;
+}
+.contright{
+  float: left
+}
+.contright view{
+  width: 443rpx;
+  height: 105rpx;
+  background: url('https://m.7710mall.com/Uploads/xxc/fenx_03.png') no-repeat;
+  background-size: 100% 100%;
+  color: #fff;
+  font-size: 26rpx;
+  padding: 20rpx 20rpx 0 20rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+}
+.backgr{
+  width: 100%;
+  height: 100%;
+}
+.leftwe{
+  float: left;
+  width: 50%;
+  height: 100%;
+  text-align: right;
+  padding-right: 40rpx;
+  box-sizing: border-box;
+}
+.leftwes{
+  float: left;
+  width: 50%;
+  height: 100%;
+  text-align: left;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+.wecar{
+  width: 68rpx;
+  height: 68rpx;
+  margin-right: 97rpx;
+}
+.wecars{
+  width: 68rpx;
+  height: 68rpx;
+  margin-left: 97rpx;
+}
+.fexwe{
+  font-size: 26rpx;
+  color: #ff712b;
+}
+.leftwe button{
+  font-size: 26rpx;
+  color: #ff712b;
+  list-style: none;
+  width: 260rpx;
+  height: 60rpx;
+  background: #fff;
+  border: none;
+  float: right;
+}
+.leftwes button{
+  font-size: 26rpx;
+  color: #ff712b;
+  list-style: none;
+  width: 260rpx;
+  height: 60rpx;
+  background: #fff;
+  border: none;
+  float: left;
+}
+.oofsss{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 40rpx;
+  bottom: 679rpx;
 }

@@ -14,6 +14,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var pid = options.pid;
+    if (pid) {
+      wx.setStorageSync("pid", pid);
+    }
+
     var that = this;
     //页面加载获取分类图片，和跳转ID
     wx.request({
@@ -23,7 +28,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-          
+        console.log(res.data)
         that.setData({ imgurl: res.data })
 
       },
@@ -89,6 +94,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    var userinfo = wx.getStorageSync("userinfo");
+    var uid = userinfo.uid;
+    return {
+      title: '【青青优农】追求原始的味道',
+      path: '/pages/classify/classify?pid=' + uid,
+      imageUrl: '',
+      success: function (res) {
+        console.log(res)
+        // console.log
+        // wx.getShareInfo({
+        //   shareTicket: res.shareTickets[0],
+        //   success: function (res) {
+        //     console.log(res)
+        //   },
+        //   fail: function (res) { console.log(res) },
+        //   complete: function (res) { console.log(res) }
+        // })
+      },
+      fail: function (res) {
+        // 分享失败
+        //console.log(res)
+      }
+    }
   }
 })
